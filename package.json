@@ -1,0 +1,34 @@
+{
+  "name": "events-web-app",
+  "version": "1.0.0",
+  "description": "A DBMS MINI PROJECT WITH SQL",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshaykumaru18/Events-web-app.git"
+  },
+  "keywords": [
+    "sql",
+    "mysql",
+    "node",
+    "express",
+    "react",
+    "html",
+    "css"
+  ],
+  "author": "Akshay Kumar U, Hari Krishna Raj",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/akshaykumaru18/Events-web-app/issues"
+  },
+  "homepage": "https://github.com/akshaykumaru18/Events-web-app#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.3",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.6"
+  }
+}
