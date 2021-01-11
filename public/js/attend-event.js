@@ -6,7 +6,7 @@ function loadDetails(){
     contentBlock.style.display = "none";
     loadingBlock.style.display = "block";
 
-    var apiUrl = 'http://localhost:5000/events?eventId=' + localStorage.getItem("attend_event_id");
+    var apiUrl =  `http://localhost:5000/events?eventId=${localStorage.getItem("attend_event_id")}&emailId=${localStorage.getItem('user_email')}`;
     fetch(apiUrl).then(response => {
         return response.json();
     }).then(data => {
@@ -49,6 +49,16 @@ function loadDetails(){
         
             var ticketPriceNode = document.getElementById("ticket-amount");
             ticketPriceNode.innerText = eventsList[i].TICKET_PRICE;
+
+            var attendButtonNode = document.getElementById('attend-button');
+            var bookedButtonNode = document.getElementById('booked-button');
+            if(String(eventsList[i].USER_BOOKED) == "true"){
+              bookedButtonNode.style.display = "block";
+              attendButtonNode.style.display = "none";
+            }else{
+              attendButtonNode.style.display = "block";
+              bookedButtonNode.style.display = "none";
+            }
         }
 
     }).catch(err => {
@@ -79,6 +89,12 @@ function makePayment(){
             
           } else {
             alert(result['data']['message']);
+            var attendButtonNode = document.getElementById('attend-button');
+            var bookedButtonNode = document.getElementById('booked-button');
+            
+              bookedButtonNode.style.display = "block";
+              attendButtonNode.style.display = "none";
+            
           }
 
         },

@@ -514,7 +514,7 @@ function setEventId(event_id) {
 }
 
 function loadEventDetails() {
-    //alert(localStorage.getItem("update_event_id"));
+   
     var EVENT_ID = document.forms["UpdateEventForm"]["EVENT_ID"];
     var EVENT_NAME = document.forms["UpdateEventForm"]["EVENT_NAME"];
     var EVENT_IMAGE = document.forms["UpdateEventForm"]["EVENT_IMAGE"];
@@ -533,7 +533,9 @@ function loadEventDetails() {
     var EVENT_CATEGORY_ID = document.forms["UpdateEventForm"]["SELECTED_EVENT_CATEGORY_ID"];
     EVENT_HOST_ID.value = localStorage.getItem("user_email");
 
-    var apiUrl = 'http://localhost:5000/events?eventId=' + localStorage.getItem("update_event_id");
+    var apiUrl = 'http://localhost:5000/events?eventId=' + localStorage.getItem("update_event_id")+'&user_email=' + "";
+    
+   
     fetch(apiUrl).then(response => {
         return response.json();
     }).then(data => {
