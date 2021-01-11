@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="text/html" href="/css/bootstrap-theme.min.css">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Full-width input fields */
+    input[type=text],
+    input[type=password],
+    input[type=number],
+    input[type=date] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    /* Set a style for all buttons */
+    button {
+      background-color: black;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    /* Extra styles for the cancel button */
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+    }
+
+    /* Center the image and position the close button */
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+      position: relative;
+    }
+
+    img.avatar {
+      width: 40%;
+      border-radius: 50%;
+    }
+
+    .container {
+      padding: 16px;
+    }
+
+    span.psw {
+      float: right;
+      padding-top: 16px;
+    }
+
+    /* The Modal (background) */
+    .modal {
+      display: none;
+      /* Hidden by default */
+      position: fixed;
+      /* Stay in place */
+      z-index: 1;
+      /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%;
+      /* Full width */
+      height: 100%;
+      /* Full height */
+      overflow: auto;
+      /* Enable scroll if needed */
+      background-color: rgb(0, 0, 0);
+      /* Fallback color */
+      background-color: rgba(0, 0, 0, 0.4);
+      /* Black w/ opacity */
+      padding-top: 60px;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+      background-color: #fefefe;
+      margin: 5% auto 15% auto;
+      /* 5% from the top, 15% from the bottom and centered */
+      border: 1px solid #888;
+      width: 80%;
+      /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button (x) */
+    .close {
+      position: absolute;
+      right: 25px;
+      top: 0;
+      color: #000;
+      font-size: 35px;
+      font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: red;
+      cursor: pointer;
+    }
+
+    /* Add Zoom Animation */
+    .animate {
+      -webkit-animation: animatezoom 0.6s;
+      animation: animatezoom 0.6s
+    }
+
+    @-webkit-keyframes animatezoom {
+      from {
+        -webkit-transform: scale(0)
+      }
+
+      to {
+        -webkit-transform: scale(1)
+      }
+    }
+
+    @keyframes animatezoom {
+      from {
+        transform: scale(0)
+      }
+
+      to {
+        transform: scale(1)
+      }
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+        display: block;
+        float: none;
+      }
+
+      .cancelbtn {
+        width: 100%;
+      }
+    }
+
+    .center-block {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 30em;
+      height: 20em;
+      margin-top: -9em;
+      /*set to a negative number 1/2 of your height*/
+      margin-left: -15em;
+      /*set to a negative number 1/2 of your width*/
+      border: 1px solid #ccc;
+      background-color: #f3f3f3;
+
+    }
+
+    .center-block h2 {
+      color: black;
+      margin-top: 10px;
+      margin-left: 120px;
+
+    }
+
+    .login-button {
+      margin-top: 10px;
+      margin-left: 120px;
+      position: relative;
+    }
+
+    .alert {
+      padding: 20px;
+      color: white;
+    }
+
+    .danger-alert {
+      background-color: red;
+    }
+
+    .success-alert {
+      background-color: green;
+    }
+
+    .closebtn {
+      margin-left: 15px;
+      color: white;
+      font-weight: bold;
+      float: right;
+      font-size: 22px;
+      line-height: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .closebtn:hover {
+      color: black;
+    }
+  </style>
+</head>
+
+<body onload="loadCountries();">
+
+  <div class="center-block">
+    <h2>Login or Sign up</h2>
+    <button class="login-button" onclick="document.getElementById('id01').style.display='block'"
+      style="width:50%;"><b>Login</b></button>
+    <h3 style="position: relative;margin-left: 200px;color: #000;">OR</h3>
+    <button class="login-button" onclick="document.getElementById('id02').style.display='block'"
+      style="width:50%;"><b>SIGNUP</b></button>
+  </div>
+
+
+  <div id="id01" class="modal">
+
+    <form class="modal-content animate" id="userLoginForm" name="userLoginForm" method="POST">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id01').style.display='none'" class="close"
+          title="Close Modal">&times;</span>
+        <img src="/assets/images/logo.png" alt="Avatar" class="avatar" style="width: 100px;height: 100px;">
+      </div>
+
+      <div class="container">
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter email" name="email" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <button type="submit">Login</button>
+
+      </div>
+
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'"
+          class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+      <div class="alert danger-alert" id="danger-alert" style="display: none;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Login Failed!</strong> Account does not exist or password is wronng!
+      </div>
+      <div class="alert success-alert" id="success-alert" style="display: none;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong>Login Success!</strong> Routing to Home Page
+      </div>
+    </form>
+  </div>
+  <div id="id02" class="modal">
+    <form class="modal-content animate" id="userSignUpForm" name="userSignUpForm" method="POST">
+      <div class="imgcontainer">
+        <span onclick="document.getElementById('id02').style.display='none'" class="close"
+          title="Close Modal">&times;</span>
+        <img src="/assets/images/logo.png" alt="Avatar" class="avatar" style="width: 100px;height: 100px;">
+      </div>
+
+      <div class="container">
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter email" name="email" required>
+
+        <label for="fname"><b>First Name</b></label>
+        <input type="text" placeholder="Enter First name" name="fname" required>
+
+        <label for="lname"><b>Last Name</b></label>
+        <input type="text" placeholder="Enter Last Name" name="lname" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <label for="confirmPassword"><b>Confirm Password</b></label>
+        <input type="password" placeholder="Enter Password" name="confirmPassword" required>
+
+        <label for="phone"><b>Phone Number</b></label>
+        <input type="number" placeholder="Phone Number" name="phoneNumber" required>
+
+        <label for="datetime"><b>Date of Birth</b></label>
+        <input type="date" placeholder="Date of Birth" name="dateOfBirth" required>
+
+        <label for="userCountry">Country</label>
+        <select id="EVENT_COUNTRY" name="EVENT_COUNTRY" onchange="loadStatesForCountry()" required>
+
+        </select>
+
+
+        <label for="userState">State</label>
+        <select id="EVENT_STATE" name="EVENT_STATE" onchange="loadCitiesForStates()" required>
+
+        </select>
+
+        <label for="userCity">City</label>
+        <select id="EVENT_CITY" name="EVENT_CITY" required>
+
+        </select>
+
+        <button type="submit">Create Account</button>
+
+      </div>
+
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'"
+          class="cancelbtn">Cancel</button>
+        <span class="psw">Forgot <a href="#">password?</a></span>
+      </div>
+      <div class="alert danger-alert" id="danger-alert2" style="display: none;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong id="danger-alert2-message">Create Account Failed!</strong>
+      </div>
+      <div class="alert success-alert" id="success-alert2" style="display: none;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong id="success-alert2-message">Create Account Success!</strong>
+      </div>
+    </form>
+  </div>
+
+
+  <script src="/js/event-host-page.js"></script>
+  <script src="/js/user-details.js"></script>
+  <script>
+
+    function redirect() {
+      window.location.replace("index.html");
+    }
+    // Get the modal
+    var modal1 = document.getElementById('id01');
+    var modal2 = document.getElementById('id02');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+      if (event.target == modal1) {
+        modal1.style.display = "none";
+      } else if (event.target == modal2) {
+        modal2.style.display = "none";
+      }
+    }
+  </script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script>
+    let loginForm = document.getElementById("userLoginForm");
+    loginForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      // handle the form data
+      let email = loginForm.elements['email'];
+      let password = loginForm.elements['password'];
+      var data = {
+        email: email.value,
+        password: password.value
+      }
+      $.ajax({
+        url: 'http://localhost:5000/login',
+        type: "POST",
+        data: data,
+        success: function (result) {
+          console.log(result);
+          var success = result['data']['success'];
+          console.log(success);
+          if (success == 400) {
+            //alert('failure');
+            var dangerAlertNode = document.getElementById('danger-alert');
+            dangerAlertNode.style.display = "block";
+          } else {
+            console.log(result['data'][0]);
+            var successAlert = document.getElementById('success-alert');
+            successAlert.style.display = "block";
+            setUserEmail(email.value, password.value);
+            redirect();
+          }
+
+        },
+        error: function () {
+          alert('failure');
+        }
+      })
+      //loginForm.submit();
+    });
+
+
+    let signUpForm = document.getElementById("userSignUpForm");
+    signUpForm.addEventListener('submit', (event) => {
+
+      event.preventDefault();
+      // handle the form data
+      let email = signUpForm.elements['email'];
+      let password = signUpForm.elements['password'];
+      let confirmPassword = signUpForm.elements['confirmPassword']
+      let fname = signUpForm.elements['fname'];
+      let lname = signUpForm.elements['lname'];
+      let phoneNumber = signUpForm.elements['phoneNumber'];
+      let dateOfBirth = signUpForm.elements['dateOfBirth'];
+      let userCity = signUpForm.elements['EVENT_CITY'];
+
+      alert(email.value + " : " + password.value + " : " + confirmPassword.value + " : " + fname.value + " : " + lname.value + " : " + phoneNumber.value + " : " + dateOfBirth.value);
+
+      if (password.value != confirmPassword.value) {
+        var dangerAlertNode = document.getElementById('danger-alert2');
+        var messageNode = document.getElementById('danger-alert2-message');
+        messageNode.innerHTML = "Passwords not matching";
+        dangerAlertNode.style.display = "block";
+        return false;
+      }
+
+
+      var data = {
+        email: email.value,
+        password: password.value,
+        fname: fname.value,
+        lname: lname.value,
+        phoneNumber: phoneNumber.value,
+        dateOfBirth: dateOfBirth.value,
+        userCity: userCity.value
+      }
+      // alert('calling api ' + data);
+      $.ajax({
+        url: 'http://localhost:5000/signup',
+        type: "POST",
+        data: data,
+        success: function (result) {
+          console.log(result);
+          var success = result['data']['success'];
+          console.log(success);
+          if (success == 400) {
+            //alert('failure');
+            var dangerAlertNode = document.getElementById('danger-alert2');
+            var messageNode = document.getElementById('danger-alert2-message');
+            messageNode.innerHTML = result['data']['message'];
+            dangerAlertNode.style.display = "block";
+          } else {
+            console.log(result['data'][0]);
+            var successAlert = document.getElementById('success-alert2');
+            var messageNode = document.getElementById("success-alert2-message");
+            messageNode.innerHTML = "Account created Successfully";
+            successAlert.style.display = "block";
+            redirect();
+          }
+
+        },
+        error: function () {
+          alert('failure');
+        }
+      })
+
+    });
+
+
+    function validateAndLogin() {
+
+      var user_email = document.forms["userLoginForm"]["email"];
+      var password = document.forms["userLoginForm"]["password"];
+      event_data = {
+        "email": user_email.value,
+        "password": password.value,
+      }
+
+      const loginForm = document.getElementById('userLoginForm');
+      loginForm.addEventListener('submit', function (e) {
+
+      });
+      //  var apiUrl = 'http://localhost:5000/login';
+      //      fetch(apiUrl).then(response => {
+      //      return response.json();
+      //      }).then(data => {
+      //      // Work with JSON data here
+      //      alert('user login response got : ' + data);
+      //      console.log(data);
+      //      }).catch(err => {
+      //          //alert(err);
+      //      // Do something for an error here
+      //      });
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+input[type=text], select, textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+
+input[type=submit] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px 40px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: center;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+.container {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.col-25 {
+  float: left;
+  width: 25%;
+  margin-top: 6px;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+  .col-25, .col-75, input[type=submit] {
+    width: 100%;
+    margin-top: 0;
+  }
+}
+</style>
+</head>
+<body>
+
+   
+
+
+<div class="container">
+  <center>
+    <h2>Add Event Form</h2>
+</center>
+  <form onsubmit="return validateAndInsertEvent();" name="AddEventForm" action="http://localhost:5000/events/add" method="POST">
+  <div class="row">
+    <div class="col-25">
+      <label for="Event Name">Event Name</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="EVENT_NAME" name="EVENT_NAME" placeholder="Event Title">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_START_DATE">Event Start date</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="EVENT_START_DATE" name="EVENT_START_DATE" placeholder="Event Start date">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_END_DATE">Event end date</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="EVENT_END_DATE" name="EVENT_END_DATE" placeholder="Event end date">
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_DESCRIPTION">Event Description</label>
+    </div>
+    <div class="col-75">
+      <textarea id="EVENT_DESCRIPTION" name="EVENT_DESCRIPTION" placeholder="Write about event  (max 200 chars)" style="height:200px"></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="TICKET_PRICE">Ticket Price</label>
+    </div>
+    <div class="col-75">
+      <input type="number" id="TICKET_PRICE" name="TICKET_PRICE" placeholder="Ticket price">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_ADDRESS">Event address</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="EVENT_ADDRESS" name="EVENT_ADDRESS" placeholder="event address">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_CITY">City</label>
+    </div>
+    <div class="col-75">
+      <select id="EVENT_CITY" name="EVENT_CITY">
+        <option value="Bangalore">Bangalore</option>
+        <option value="Hubli">Hubli</option>
+        <option value="Mangalore">Mangalore</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Hydrabad">Hydrabad</option>
+        <option value="kochi">kochi</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_STATE">State</label>
+    </div>
+    <div class="col-75">
+      <select id="EVENT_STATE" name="EVENT_STATE">
+        <option value="Karnataka">Karnataka</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Maharastra">Maharastra</option>
+        <option value="Tamil nadu">Tamil nadu</option>
+        <option value="Punjab">Punjab</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_COUNTRY">Country</label>
+    </div>
+    <div class="col-75">
+      <select id="EVENT_COUNTRY" name="EVENT_COUNTRY">
+        <option value="India">India</option>
+      </select>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_HOST_ID">Event host email id</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="EVENT_HOST_ID" name="EVENT_HOST_ID" placeholder="enter host email address">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="INVITE_TYPE">Event Invite type</label>
+    </div>
+    <div class="col-75">
+      <input type="text" id="INVITE_TYPE" name="INVITE_TYPE" placeholder="enter invite type">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-25">
+      <label for="EVENT_CAPACITY">Event Capacity</label>
+    </div>
+    <div class="col-75">
+      <input type="number" id="EVENT_CAPACITY" name="EVENT_CAPACITY" placeholder="event accomodation size">
+    </div>
+  </div>
+
+    <div class="row">
+        <input type="submit"  value="Submit">
+      </div>
+
+  </form>
+</div>
+
+<script type="text/javascript">
+    function validateAndInsertEvent() {
+       // alert("From submitted");
+        //history.replaceState({}, null, "/insert_event.html");
+        var EVENT_NAME = document.forms["AddEventForm"]["EVENT_NAME"]; 
+        var EVENT_START_DATE = document.forms["AddEventForm"]["EVENT_START_DATE"]; 
+        var EVENT_END_DATE = document.forms["AddEventForm"]["EVENT_END_DATE"]; 
+        var EVENT_DESCRIPTION = document.forms["AddEventForm"]["EVENT_DESCRIPTION"]; 
+        var TICKET_PRICE = document.forms["AddEventForm"]["TICKET_PRICE"]; 
+        var EVENT_ADDRESS = document.forms["AddEventForm"]["EVENT_ADDRESS"]; 
+        var EVENT_CITY = document.forms["AddEventForm"]["EVENT_CITY"]; 
+        var EVENT_STATE = document.forms["AddEventForm"]["EVENT_STATE"]; 
+        var EVENT_COUNTRY = document.forms["AddEventForm"]["EVENT_COUNTRY"]; 
+        var EVENT_HOST_ID = document.forms["AddEventForm"]["EVENT_HOST_ID"]; 
+        var INVITE_TYPE = document.forms["AddEventForm"]["INVITE_TYPE"]; 
+        var EVENT_CAPACITY = document.forms["AddEventForm"]["EVENT_CAPACITY"]; 
+
+        // alert(
+        //     "EVENT_NAME : " + EVENT_NAME.value + "\n" +
+        //     "EVENT_START_DATE : " + EVENT_START_DATE.value + "\n" +
+        //     "EVENT_END_DATE : " + EVENT_END_DATE.value + "\n" +
+        //     "EVENT_DESCRIPTION : " + EVENT_DESCRIPTION.value + "\n" +
+        //     "TICKET_PRICE " + TICKET_PRICE.value + "\n" +
+        //     "EVENT_ADDRESS : " + EVENT_ADDRESS.value + "\n" +
+        //     "EVENT_CITY : " + EVENT_CITY.value + "\n" +
+        //     "EVENT_STATE : " + EVENT_STATE.value + "\n" +
+        //     "EVENT_COUNTRY : " + EVENT_COUNTRY.value + "\n"+
+        //     "EVENT_HOST_ID : " + EVENT_HOST_ID.value + "\n"+
+        //     "INVITE_TYPE : " + INVITE_TYPE.value + "\n" +
+        //     "EVENT_CAPACITY : " + EVENT_CAPACITY.value + "\n"
+        //     );
+
+            
+            if (EVENT_NAME.value == "") { 
+            window.alert("Please enter event name."); 
+            EVENT_NAME.focus(); 
+            return false; 
+            } 
+
+            // if (EVENT_START_DATE.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_START_DATE.focus(); 
+            // return false; 
+            // } 
+
+            // if (EVENT_END_DATE.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_END_DATE.focus(); 
+            // return false; 
+            // } 
+
+            // if (EVENT_DESCRIPTION.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_END_DATE.focus(); 
+            // return false; 
+            // } 
+
+            // if (TICKET_PRICE.value == "") { 
+            // window.alert("Please enter event name."); 
+            // TICKET_PRICE.focus(); 
+            // return false; 
+            // } 
+
+
+            // if (EVENT_ADDRESS.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_ADDRESS.focus(); 
+            // return false; 
+            // } 
+
+            // // EVENT_CITY
+            // if (EVENT_CITY.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_CITY.focus(); 
+            // return false; 
+            // } 
+
+            // //EVENT_STATE
+            // if (EVENT_STATE.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_STATE.focus(); 
+            // return false; 
+            // } 
+
+            // //EVENT_COUNTRY
+            // if (EVENT_COUNTRY.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_COUNTRY.focus(); 
+            // return false; 
+            // } 
+            // //EVENT_HOST_ID
+            // if (EVENT_HOST_ID.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_HOST_ID.focus(); 
+            // return false; 
+            // } 
+
+            // //INVITE_TYPE
+            // if (INVITE_TYPE.value == "") { 
+            // window.alert("Please enter event name."); 
+            // INVITE_TYPE.focus(); 
+            // return false; 
+            // } 
+
+            // //EVENT_CAPACITY
+            // if (EVENT_CAPACITY.value == "") { 
+            // window.alert("Please enter event name."); 
+            // EVENT_CAPACITY.focus(); 
+            // return false; 
+            // } 
+
+
+            "EVENT_NAME : " + EVENT_NAME.value + "\n" +
+            "EVENT_START_DATE : " + EVENT_START_DATE.value + "\n" +
+            "EVENT_END_DATE : " + EVENT_END_DATE.value + "\n" +
+            "EVENT_DESCRIPTION : " + EVENT_DESCRIPTION.value + "\n" +
+            "TICKET_PRICE " + TICKET_PRICE.value + "\n" +
+            "EVENT_ADDRESS : " + EVENT_ADDRESS.value + "\n" +
+            "EVENT_CITY : " + EVENT_CITY.value + "\n" +
+            "EVENT_STATE : " + EVENT_STATE.value + "\n" +
+            "EVENT_COUNTRY : " + EVENT_COUNTRY.value + "\n"+
+            "EVENT_HOST_ID : " + EVENT_HOST_ID.value + "\n"+
+            "INVITE_TYPE : " + INVITE_TYPE.value + "\n" +
+            "EVENT_CAPACITY : " + EVENT_CAPACITY.value + "\n"
+
+            event_data = {  
+            "EVENT_NAME" : EVENT_NAME.value,
+            "EVENT_START_DATE" :EVENT_START_DATE.value,
+            "EVENT_END_DATE":EVENT_END_DATE.value,
+            "EVENT_DESCRIPTION": EVENT_DESCRIPTION.value,
+            "TICKET_PRICE":TICKET_PRICE.value,
+            "EVENT_ADDRESS": EVENT_ADDRESS.value,
+            "EVENT_CITY" :EVENT_CITY.value,
+            "EVENT_STATE" : EVENT_STATE.value,
+            "EVENT_COUNTRY" : EVENT_COUNTRY.value,
+            "EVENT_HOST_ID":EVENT_HOST_ID.value,
+            "INVITE_TYPE":INVITE_TYPE.value,
+            "EVENT_CAPACITY":EVENT_CAPACITY.value,
+             } 
+            // let options = { 
+            // method: 'POST', 
+            // headers: { 
+            //     'Content-Type':  
+            //     'application/json;charset=utf-8' 
+            // }, 
+            // body: JSON.stringify(event_data) 
+            // } 
+            let fetchRes = fetch( "http://localhost:5000/insertions/"); 
+            fetchRes.then(Response => {
+              // Work with JSON data here
+              alert(Response.text);
+            }).catch(err => {
+              // Do something for an error here
+            });
+    }
+</script>
+</body>
+</html>

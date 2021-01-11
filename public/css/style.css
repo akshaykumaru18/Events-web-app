@@ -1,0 +1,336 @@
+  /*  Navigation bar css */
+  #navBtn {
+    border: none;
+    outline: none;
+    padding: 10px 16px;
+    
+    cursor: pointer;
+    font-size: 18px;
+    }
+
+    /* Style the active class, and buttons on mouse-over */
+    .active, #navBtn:hover {
+    background-color: rgb(226, 190, 190);
+    color: white;
+    }
+
+    .navTitle{
+        font-weight: 800;
+        color: black;
+        
+    }
+    
+/* Nav bar end */
+
+
+/*Drop down button start*/
+.dropbtn {
+    color: white;
+   
+    border: none;
+  }
+  
+
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+
+/*Drop down button end*/
+
+/* Home page start */
+
+
+
+
+.homePageBanner{
+    color: brown;
+    background-color: #0c0c0c;
+    max-width: 100%;
+    height: 200px;
+    position: relative;
+    /* background-image: url('https://www.marsdd.com/wp-content/uploads/2020/01/blog-tech-conferences.jpg'); */
+    background-repeat: no-repeat;
+    background-size: 2000px 400px; 
+    background-color: black;
+
+    z-index: 10;
+}
+div.sticky{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+
+}
+.homePageBannerTitle{
+    font-size: 50px;
+    text-align: center;
+    color: cornsilk;
+    margin: 0 auto;
+    position: absolute;
+    top: 15%;
+    left: 20%;
+    right: 30%;
+}
+
+.boxContainer{
+    height: 45px;
+    margin: auto;
+    position: absolute;
+    top: 40%;
+    left:10%;
+    right: 30%;
+    width: 550px;
+    height: 60px;
+    border: 4px solid #f0f0f0;
+    padding: 0px 10px;
+    border-radius: 10px;
+    background-color: white;
+
+}
+
+
+.elementsContainer{
+    width: 100%;
+    height: 100%;
+    vertical-align: middle;
+
+}
+
+.search{
+    border: none;
+    height: 100%;
+    width: 100%;
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+    font-size: 25px;
+    font-family: "Nunito";
+    color: #424242;
+    font-weight: 500;
+}
+.search:focus{
+    outline: none;
+}
+.material-icons{
+    font-size: 25px;
+    /* color: rgb(0, 0, 0); */
+    width: 10;
+    counter-reset: #0f0f0f;
+    padding: 10px 10px 10px 10px;
+}
+
+.calender{
+    position: absolute;
+    top: 45%;
+    left:65%;
+    height: 45px;
+    width: 200px;
+    border: 4px solid #f0f0f0;
+    padding: 0px 10px;
+    border-radius: 10px;
+    background-color: white;
+   
+}
+.with{
+    color: white;
+    position: absolute;
+    top: 45%;
+    left:60%;
+    
+}
+
+#searchList {
+list-style-type: none;
+padding: 0;
+margin: 0;
+}
+
+#searchList li a {
+border: 1px solid #ddd;
+margin-top: 10px; /* Prevent double borders */
+background-color: #f6f6f6;
+padding: 12px;
+text-decoration: none;
+font-size: 18px;
+color: black;
+display: block;
+ width: 200px;
+height: 60px;
+ font-weight: 700;
+position: relative;
+top: 70%;
+right: 3%;
+border-radius: 30px;
+width: 450px;
+height: 60px;
+z-index: 10;
+} 
+
+/* .search-list-container{
+    background-color: wheat;
+    width: 500px;
+    position: relative;
+    top: 70%;
+    right: 3%;
+
+}  */
+
+
+#searchList li a:hover:not(.header) {
+background-color: wheat;
+}
+
+
+
+.fakeimg {
+height: 200px;
+background: #aaa;
+}
+
+.event-detail{
+    text-align: left;
+    margin: 10px,10px,10px,10px;
+}
+.event-image{
+    float: left;
+    width:170px;height:170px;margin-right:15px;
+    background-color: coral;
+}
+
+.list-group-item{
+    border-color: darkblue;
+    border-width: 3px;
+    border: 3px solid;
+}
+
+.home-page-category:hover{
+    background-color:black;
+    color:white;
+}
+.home-page-category-selected{
+  background-color: green;
+  color: white;
+}
+
+.list-group-item .trailing-attend, .trailing-update{
+    float: right;
+    width:150px;height:150px;
+    background-color: black;
+    text-align: center;
+    background: rgba(0,0, 0, .6);
+    transition: .5s;
+}
+.list-group-item .trailing-attend:hover,.trailing-update:hover{
+    float: right;
+    width:150px;height:150px;
+    background-color: pink;
+    text-align: center;
+    transition: .5s;
+}
+.list-group-item .trailing-attend:active,.trailing-update:active{
+    float: right;
+    width:150px;height:150px;
+    background-color: blue;
+    text-align: center;
+    transition: .5s;
+}
+.list-group-item .trailing-attend h2,.trailing-update h2{
+    color: white;
+    margin-top: 50px;
+}
+
+/* Home page end */
+
+
+/*About us flip card start*/
+
+.flip-card {
+    border: 1px solid;
+    border-radius: 10px;
+    box-shadow: 5px 5px #888888;
+    background-color: transparent;
+    width: 300px;
+    height: 250px;
+    border: 1px solid #f1f1f1;
+    margin-left: 120%;
+    margin-right: 20px;
+    perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  }
+  
+  /* This container is needed to position the front and back side */
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+    
+  }
+  
+  /* Do an horizontal flip when you move the mouse over the flip box container */
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+  
+  /* Position the front and back side */
+  .flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden; /* Safari */
+    backface-visibility: hidden;
+    border-radius: 10px;
+  }
+  
+  /* Style the front side (fallback if image is missing) */
+  .flip-card-front {
+    background-color: #f1f1f1;
+    
+    color: black;
+  }
+  .flip-card-front h2{
+    margin-top: 10%;
+  }
+  /* Style the back side */
+  .flip-card-back {
+    
+    background-color: black;
+    color: white;
+    transform: rotateY(180deg);
+  }
+
+  .flip-card-back h1{
+        margin-top: 20%;
+  }
+/*About us flip card end*/
+
+
+
+
+.image-banner{
+  max-width: 100%;
+  height: 300px;
+  position: relative;
+   background-image: url('https://www.marsdd.com/wp-content/uploads/2020/01/blog-tech-conferences.jpg'); 
+  background-repeat: no-repeat;
+  background-size: 2000px 400px;
+  background-color: black;
+}

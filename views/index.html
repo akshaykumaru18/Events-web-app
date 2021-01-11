@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>HOME</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="text/html" href="/css/bootstrap-theme.min.css">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</head>
+
+<body onload="loadEventsAndCategories();">
+    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <img src="/assets/images/logo.png" style="width:50px;height:50px;">
+                <a class="navbar-brand" href="#"><b>Events Web App</b></a>
+            </ul>
+            <ul class="navbar-nav" id="navbarDiv">
+
+                <li class="nav-item navTitle" id="navBtn">
+                    <a class="nav-link" href="#about-us">About Us</a>
+                </li>
+                <!-- <li class="nav-item navTitle" id="navBtn">
+                    <a class="nav-link" href="#">Explore
+                    </a>
+                </li> -->
+                <li class="nav-item navTitle" id="navBtn">
+
+                    <div class="dropdown">
+                        <a class="nav-link dropbtn" href="#">Host</a>
+
+                        <div class="dropdown-content">
+                            <a href="#" onclick="routeToHost()">
+                                <h4>Host Event</h4>
+                            </a>
+                            <a href="#" onclick="routeToUpdateEvents()">
+                                <h4>View Your Events</h4>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item navTitle" id="navBtn">
+                    <a class="nav-link" href="login.html" id="loginButton">Login</a>
+                    
+                    <div class="dropdown">
+                        <a class="nav-link dropbtn" href="#" id="logoutButton">Profile</a>
+
+                        <div class="dropdown-content">
+                            <a  href="#"><h5>Booked Events</h5></a>
+                            <a href="#" id="logoutButton" onclick="logout()"><h5>logout</h5></a>
+                            
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+
+    <div class="homePageBanner sticky">
+        <table>
+            <tr>
+                <td>
+                    <div class="boxContainer">
+                        <div class="row">
+                            <table class="elementsContainer">
+                                <tr>
+                                    <td><input id="searchInput" class="search" type="text" placeholder="Search"
+                                            onkeyup="userSearchFunction()"></td>
+                                    <td><a href="#">
+                                            <i class="material-icons" style="color:rgb(0, 0, 0);">
+                                                search
+                                            </i>
+                                        </a></td>
+                                </tr>
+
+                            </table>
+
+                        </div>
+                    </div>
+                </td>
+
+                <td>
+            <tr>
+                <td>
+                <td>
+                    <h3 class="with"></h3>
+                </td>
+                <a href="#">
+                    <input type="date" class="calender" id="dateSelected" placeholder="MM/DD/YYYY" onfocus="(this.type='date')" onchange="filterSelectedDate()">
+                    <!-- <i class="material-icons calender" style="font-size:50px;color:rgb(240, 240, 240);"><span class="material-icons">
+                            calendar_today
+                            </span>
+                          </i> -->
+                    </input>
+                </a>
+                </td>
+            </tr>
+            </td>
+
+            </tr>
+        </table>
+
+
+    </div>
+
+    <div class="container my-4">
+
+        <!--Grid row-->
+        <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-8 mb-4 jumbotron text-center">
+                <h4><b>Events to attend :-</b></h4>
+                <ul class="list-group" id="events-list">
+                    <!-- <li class="list-group-item" id="event-item">
+                        <img id="event-item-image" class="event-image" src="https://5.imimg.com/data5/WT/GN/ZH/SELLER-3722283/pineapple-500x500.jpg" alt="Pineapple">
+                        <div id="event-item-trailing" class="trailing-attend">
+                            <h2 id="event-item-trailing-text">Attend</h2>
+                        </div>
+                        <div class="event-detail" id="event-item-content">
+                            <h1 id="event-item-title">Event Name</h1>
+                            <h4 id="event-item-description">Event Description</h4>
+                            <h6 id="event-item-location">Location : </h6>
+                            <h6 id="event-item-location">Date : </h6>
+                        </div>
+                    </li> -->
+
+                    <!-- <li class="list-group-item">
+                        <img class="event-image" src="https://5.imimg.com/data5/WT/GN/ZH/SELLER-3722283/pineapple-500x500.jpg" alt="Pineapple">
+                        <div class="trailing-attend">
+                            <h2>Attend</h2>
+                        </div>
+                        <div class="event-detail">
+                            <h1>Event Name</h1>
+                            <h4>Event Description</h4>
+                             <h6>Location : </h6>
+                        </div>
+                    </li> -->
+
+                </ul>
+               
+                    <h1 id="no-events">No Matching events found</h1>
+               
+
+            </div>
+            <div class="col-md-4 mb-4 jumbotron text-center">
+                <div id="applied-filter-tab" class="text-center">
+                    <h4>Applied Filter : </h4>
+                    <h6 id="filtered-date">Date</h6>
+                    <h6 id="filtered-category">Category</h6>
+                    <button type="button" class="btn btn-danger" onclick="resetFilters()">Clear Events</button>
+                </div>
+                <h4><b>Event Category</b></h4>
+                <ul class="list-group" id="event-category-list">
+
+                    <!-- <li class="list-group-item">
+
+                        <h4>Event Category</h4>
+
+                    </li>
+                    <li class="list-group-item">
+
+                        <h4>Event Category</h4>
+
+                    </li> -->
+                </ul>
+
+            </div>
+            <!--Grid column-->
+
+
+        </div>
+
+
+    </div>
+
+    <div id="about-us" class="jumbotron text-center" style="margin-bottom:10">
+        <h1>About us</h1>
+        <h4>Passionate people mad about attend events</h4>
+        <table>
+            <tr>
+                <td>
+                    <div class="flip-card card">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="/assets/images/logo.png" alt="Avatar" style="width:150px;height:150px;">
+                                <br>
+                                <h2>Akshay Kumar U</h2>
+                            </div>
+                            <div class="flip-card-back">
+                                <h1>Akshay Kumar U</h1>
+                                <p>Bangalore Institute of Technology</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="flip-card" id="2">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <img src="/assets/images/logo.png" alt="Avatar" style="width:150px;height:150px;">
+                                <br>
+                                <h2>Hari Krishna</h2>
+                            </div>
+                            <div class="flip-card-back">
+                                <h1>Hari Krishna</h1>
+                                <p>Bangalore Institute of Technology</p>
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="jumbotron text-center" style="margin-bottom:0;background-color: black;color: white;">
+        <h4>&copy; 2021 Developed and designed with love by : Akshay Kumar U , Hari Krishna Raj</h4>
+    </div>
+
+    </div>
+
+    <!-- <div class="container">
+            <div class="jumbotron">
+
+                <center>
+                    <h1>Hello hackerman</h1>
+                    <button class="btn btn-primary" onclick="addActor()">add</button>
+                    <button class="btn btn-danger" onclick="deleteActor()">delete</button>
+                </center>
+
+                
+            </div>    
+        </div> -->
+
+
+
+
+
+
+
+    <!-- Java script area start -->
+
+
+    <script src="/js/home-page.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+
+    <!-- Java script area end -->
+</body>
+
+</html>

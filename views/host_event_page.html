@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="text/html" href="/css/bootstrap-theme.min.css">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    input[type=text],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+
+    input[type=number],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    input[type=datetime-local] {
+      width: 50%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: center;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    .container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+
+    .col-25 {
+      float: left;
+      width: 20%;
+      margin-top: 6px;
+    }
+
+    .col-75 {
+      float: left;
+      width: 60%;
+      margin-top: 6px;
+    }
+
+    .item-selected{
+      background-color: green;
+    }
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+
+      .col-25,
+      .col-75,
+      input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+  </style>
+</head>
+
+<body onload="loadCountries();">
+
+
+
+
+  <div class="container">
+
+    <h2>HOST EVENT </h2>
+
+    <form id="AddEventForm" name="AddEventForm" 
+      method="POST">
+      <div class="row">
+        <div class="col-25">
+          <label for="Event Name">Event Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_NAME" name="EVENT_NAME" placeholder="Event Title">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="Event image">Event image</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_IMAGE" name="EVENT_IMAGE" placeholder="Event IMAGE URL">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_START_DATE">Event Start date</label>
+        </div>
+        <div class="col-75">
+          <input type="datetime-local" id="EVENT_START_DATE" name="EVENT_START_DATE" placeholder="Event Start date">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_END_DATE">Event end date</label>
+        </div>
+        <div class="col-75">
+          <input type="datetime-local" id="EVENT_END_DATE" name="EVENT_END_DATE" placeholder="Event end date">
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_DESCRIPTION">Event Description</label>
+        </div>
+        <div class="col-75">
+          <textarea id="EVENT_DESCRIPTION" name="EVENT_DESCRIPTION" placeholder="Write about event  (max 200 words)"
+            style="height:100px"></textarea>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-25">
+          <label for="TICKET_PRICE">Ticket Price</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="TICKET_PRICE" name="TICKET_PRICE" placeholder="Ticket price">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_ADDRESS">Event address</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_ADDRESS" name="EVENT_ADDRESS" placeholder="event address">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_COUNTRY">Country</label>
+        </div>
+        <div class="col-75">
+          <select id="EVENT_COUNTRY" name="EVENT_COUNTRY" onchange="loadStatesForCountry()">
+
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_STATE">State</label>
+        </div>
+        <div class="col-75">
+          <select id="EVENT_STATE" name="EVENT_STATE" onchange="loadCitiesForStates()">
+
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_CITY">City</label>
+        </div>
+        <div class="col-75">
+          <select id="EVENT_CITY" name="EVENT_CITY">
+
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row" style="display: none;">
+        <div class="col-25">
+          <label for="EVENT_HOST_ID">Event host email id</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_HOST_ID" name="EVENT_HOST_ID" placeholder="enter host email address">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="INVITE_TYPE">Event Invite type</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="INVITE_TYPE" name="INVITE_TYPE" placeholder="enter invite type">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_CAPACITY">Event Capacity</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="EVENT_CAPACITY" name="EVENT_CAPACITY" placeholder="event accomodation size">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_CATEGORIES">Event Categories</label>
+        </div>
+        <div class="col-75">
+          <table>
+            <tr>
+              <td><input type="text" name="category_search" id="category_search" style="margin-bottom: 10px; width: 400px;" placeholder="Search Category" onkeyup="searchMatchCategories()"></td>
+              <td><button style="background-color: black;height: 50px;width: 100px;color: white;text-align: center;font-size: medium;margin-top: 2px;">Search</button></td>
+            </tr>
+          </table>
+          <ul class="list-group" id="event-category-list">
+
+          </ul>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_CATEGORY">Selected Category</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="SELECTED_EVENT_CATEGORY" name="EVENT_CATEGORY">
+          <input type="text" id="SELECTED_EVENT_CATEGORY_ID" name="EVENT_CATEGORY_ID" style="display: none;">
+          </input>
+        </div>
+      </div>
+      
+
+      <div class="row">
+        <input type="submit" value="Submit">
+      </div>
+
+    </form>
+  </div>
+
+  <script src="/js/event-host-page.js">
+
+  </script>
+</body>
+
+</html>

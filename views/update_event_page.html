@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="text/html" href="/css/bootstrap-theme.min.css">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    input[type=text],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+
+    input[type=number],
+    select,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    input[type=datetime-local] {
+      width: 50%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    label {
+      padding: 12px 12px 12px 0;
+      display: inline-block;
+    }
+
+    input[type=submit] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 20px 40px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      float: center;
+    }
+
+    input[type=submit]:hover {
+      background-color: #45a049;
+    }
+
+    .container {
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      padding: 20px;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+
+    .col-25 {
+      float: left;
+      width: 20%;
+      margin-top: 6px;
+    }
+
+    .col-75 {
+      float: left;
+      width: 60%;
+      margin-top: 6px;
+    }
+
+    .item-selected {
+      background-color: green;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+
+      .col-25,
+      .col-75,
+      input[type=submit] {
+        width: 100%;
+        margin-top: 0;
+      }
+    }
+
+    .alert {
+      padding: 20px;
+      color: white;
+    }
+
+    .danger-alert {
+      background-color: red;
+    }
+
+    .success-alert {
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body onload="loadEventDetails();">
+
+
+
+
+  <div class="container">
+
+    <h2>UPDATE EVENT </h2>
+
+    <form id="UpdateEventForm" name="UpdateEventForm" method="POST">
+      <div class="row" style="display: none;">
+        <div class="col-25">
+          <label for="Event Name">Event Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_ID" name="EVENT_ID" placeholder="Event Title" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="Event Name">Event Name</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_NAME" name="EVENT_NAME" placeholder="Event Title" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="Event image">Event image</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_IMAGE" name="EVENT_IMAGE" placeholder="Event IMAGE URL" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_START_DATE">Event Start date</label>
+        </div>
+        <div class="col-75">
+          <input type="datetime-local" id="EVENT_START_DATE" name="EVENT_START_DATE" placeholder="Event Start date"
+            required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_END_DATE">Event end date</label>
+        </div>
+        <div class="col-75">
+          <input type="datetime-local" id="EVENT_END_DATE" name="EVENT_END_DATE" placeholder="Event end date" required>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_DESCRIPTION">Event Description</label>
+        </div>
+        <div class="col-75">
+          <textarea id="EVENT_DESCRIPTION" name="EVENT_DESCRIPTION" placeholder="Write about event  (max 200 words)"
+            style="height:100px"></textarea>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-25">
+          <label for="TICKET_PRICE">Ticket Price</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="TICKET_PRICE" name="TICKET_PRICE" placeholder="Ticket price" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_ADDRESS">Event address</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_ADDRESS" name="EVENT_ADDRESS" placeholder="event address" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_COUNTRY">Country</label>
+        </div>
+        <div class="col-75">
+          <select id="EVENT_COUNTRY" name="EVENT_COUNTRY" onchange="loadStatesForCountry()" required>
+
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_STATE">State</label>
+        </div>
+        <div class="col-75">
+          <select id="EVENT_STATE" name="EVENT_STATE" onchange="loadCitiesForStates()" required>
+
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_CITY">City</label>
+        </div>
+        <div class="col-75">
+          <select id="EVENT_CITY" name="EVENT_CITY" required>
+
+          </select>
+        </div>
+      </div>
+
+
+      <div class="row" style="display: none;">
+        <div class="col-25">
+          <label for="EVENT_HOST_ID">Event host email id</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="EVENT_HOST_ID" name="EVENT_HOST_ID" placeholder="enter host email address" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="INVITE_TYPE">Event Invite type</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="INVITE_TYPE" name="INVITE_TYPE" placeholder="enter invite type" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_CAPACITY">Event Capacity</label>
+        </div>
+        <div class="col-75">
+          <input type="number" id="EVENT_CAPACITY" name="EVENT_CAPACITY" placeholder="event accomodation size" required>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_CATEGORIES">Event Categories</label>
+        </div>
+        <div class="col-75">
+          <table>
+            <tr>
+              <td><input type="text" name="category_search" id="category_search"
+                  style="margin-bottom: 10px; width: 400px;" placeholder="Search Category"
+                  onkeyup="searchMatchCategories()"></td>
+              <td><button
+                  style="background-color: black;height: 50px;width: 100px;color: white;text-align: center;font-size: medium;margin-top: 2px;">Search</button>
+              </td>
+            </tr>
+          </table>
+          <ul class="list-group" id="event-category-list">
+
+          </ul>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-25">
+          <label for="EVENT_CATEGORY">Selected Category</label>
+        </div>
+        <div class="col-75">
+          <input type="text" id="SELECTED_EVENT_CATEGORY" name="EVENT_CATEGORY">
+          <input type="text" id="SELECTED_EVENT_CATEGORY_ID" name="EVENT_CATEGORY_ID" style="display: none;">
+          </input>
+        </div>
+      </div>
+
+
+      <div class="row" style="margin-left: 300px; margin-top: 30px;">
+        <div class="col-md-4">
+          <input type="submit" value="Submit">
+        </div>
+        <div class="col-md-4">
+          <button type="button" onclick="deleteEvent()" class="btn btn-danger" style="color: white;padding: 20px 40px;border: none;border-radius: 4px;cursor: pointer;float: center;">DELETE EVENT</button>
+        </div>
+        
+      </div>
+      <div class="alert danger-alert" id="danger-alert" style="display: none;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong id="danger-alert-message">Create Account Failed!</strong>
+      </div>
+      <div class="alert success-alert" id="success-alert" style="display: none;">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        <strong id="success-alert-message">Create Account Success!</strong>
+      </div>
+    </form>
+    <div>
+     
+    </div>
+  </div>
+
+  <script src="/js/event-host-page.js"></script>
+  <SCript>
+    let updateEventForm = document.getElementById("UpdateEventForm");
+    updateEventForm.addEventListener('submit', (event) => {
+      //alert('click received');
+      event.preventDefault();
+      // handle the form data
+      var EVENT_ID = document.forms["UpdateEventForm"]["EVENT_ID"];
+      var EVENT_NAME = document.forms["UpdateEventForm"]["EVENT_NAME"];
+      var EVENT_IMAGE = document.forms["UpdateEventForm"]["EVENT_IMAGE"];
+      var EVENT_START_DATE = document.forms["UpdateEventForm"]["EVENT_START_DATE"];
+      var EVENT_END_DATE = document.forms["UpdateEventForm"]["EVENT_END_DATE"];
+      var EVENT_DESCRIPTION = document.forms["UpdateEventForm"]["EVENT_DESCRIPTION"];
+      var TICKET_PRICE = document.forms["UpdateEventForm"]["TICKET_PRICE"];
+      var EVENT_ADDRESS = document.forms["UpdateEventForm"]["EVENT_ADDRESS"];
+      var EVENT_CITY = document.forms["UpdateEventForm"]["EVENT_CITY"];
+      var EVENT_STATE = document.forms["UpdateEventForm"]["EVENT_STATE"];
+      var EVENT_COUNTRY = document.forms["UpdateEventForm"]["EVENT_COUNTRY"];
+      var EVENT_HOST_ID = document.forms["UpdateEventForm"]["EVENT_HOST_ID"];
+      var INVITE_TYPE = document.forms["UpdateEventForm"]["INVITE_TYPE"];
+      var EVENT_CAPACITY = document.forms["UpdateEventForm"]["EVENT_CAPACITY"];
+      var EVENT_CATEGORY = document.forms["UpdateEventForm"]["EVENT_CATEGORY"];
+      var EVENT_CATEGORY_ID = document.forms["UpdateEventForm"]["EVENT_CATEGORY_ID"];
+      EVENT_HOST_ID.value = localStorage.getItem("user_email");
+
+      var data = {
+        EVENT_ID: EVENT_ID.value,
+        EVENT_NAME: EVENT_NAME.value,
+        EVENT_IMAGE: EVENT_IMAGE.value,
+        EVENT_START_DATE: sqlFormatDateString(EVENT_START_DATE.value),
+        EVENT_END_DATE: sqlFormatDateString(EVENT_END_DATE.value),
+        EVENT_DESCRIPTION: EVENT_DESCRIPTION.value,
+        TICKET_PRICE: TICKET_PRICE.value,
+        EVENT_ADDRESS: EVENT_ADDRESS.value,
+        EVENT_CITY: EVENT_CITY.value,
+        EVENT_STATE: EVENT_STATE.value,
+        EVENT_COUNTRY: EVENT_COUNTRY.value,
+        EVENT_HOST_ID: EVENT_HOST_ID.value,
+        INVITE_TYPE: INVITE_TYPE.value,
+        EVENT_CAPACITY: EVENT_CAPACITY.value,
+        EVENT_CATEGORY: EVENT_CATEGORY.value,
+        EVENT_CATEGORY_ID: EVENT_CATEGORY_ID.value
+      }
+      // alert('calling api ' + data);
+      $.ajax({
+        url: 'http://localhost:5000/updateEvent',
+        type: "POST",
+        data: data,
+        success: function (result) {
+          console.log(result);
+          var success = result['data']['success'];
+          console.log(success);
+          if (success == 400) {
+            //alert('failure');
+            var dangerAlertNode = document.getElementById('danger-alert');
+            var messageNode = document.getElementById('danger-alert-message');
+            messageNode.innerHTML = result['data']['message'];
+            dangerAlertNode.style.display = "block";
+          } else {
+           
+            var successAlert = document.getElementById('success-alert');
+            var messageNode = document.getElementById("success-alert-message");
+            messageNode.innerHTML = "Event Updated Successfully";
+            successAlert.style.display = "block";
+            window.location.replace("index.html");
+          }
+
+        },
+        error: function () {
+          alert('failure');
+        }
+      })
+
+    });
+
+
+    function deleteEvent(){
+      var EVENT_ID = document.forms["UpdateEventForm"]["EVENT_ID"];
+      var data = {
+        EVENT_ID:EVENT_ID.value
+      };
+      $.ajax({
+        url: 'http://localhost:5000/events/delete?event_id='+EVENT_ID.value,
+        success: function (result) {
+          console.log(result);
+          var success = result['data']['success'];
+          console.log(success);
+          if (success == 400) {
+            //alert('failure');
+            var dangerAlertNode = document.getElementById('danger-alert');
+            var messageNode = document.getElementById('danger-alert-message');
+            messageNode.innerHTML = result['data']['message'];
+            dangerAlertNode.style.display = "block";
+          } else {
+           
+            var successAlert = document.getElementById('success-alert');
+            var messageNode = document.getElementById("success-alert-message");
+            messageNode.innerHTML = "Event Deleted Successfully";
+            successAlert.style.display = "block";
+            window.location.replace("index.html");
+
+          }
+
+        },
+        error: function () {
+          alert('failure');
+        }
+      })
+    }
+
+
+    function sqlFormatDateString(date){
+
+    var d = new Date(String(date));
+    var eventDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+    return eventDate;
+    }
+  </SCript>
+</body>
+
+</html>
