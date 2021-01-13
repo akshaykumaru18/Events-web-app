@@ -277,12 +277,14 @@ function validateAndInsertEvent() {
         EVENT_START_DATE.focus();
         return false;
     }
+    checkDate(EVENT_START_DATE);
 
     if (EVENT_END_DATE.value == "") {
         window.alert("Please enter Event end Date.");
         EVENT_END_DATE.focus();
         return false;
     }
+    checkDate(EVENT_END_DATE);
 
     if (EVENT_DESCRIPTION.value == "") {
         window.alert("Please enter Event Description");
@@ -694,3 +696,12 @@ function sqlFormatDateString(date){
     var eventDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
     return eventDate;
     }
+
+
+function checkDate(givenDate){
+    //alert(givenDate.value);
+    var d = new Date(String(givenDate.value));
+    if(d < new Date()){
+        alert('Past date is not allowed');
+    }
+}

@@ -266,11 +266,7 @@
 
       </div>
 
-      <div class="container" style="background-color:#f1f1f1">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'"
-          class="cancelbtn">Cancel</button>
-        <span class="psw">Forgot <a href="#">password?</a></span>
-      </div>
+     
       <div class="alert danger-alert" id="danger-alert" style="display: none;">
         <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
         <strong>Login Failed!</strong> Account does not exist or password is wronng!
@@ -464,6 +460,7 @@
             var messageNode = document.getElementById("success-alert2-message");
             messageNode.innerHTML = "Account created Successfully";
             successAlert.style.display = "block";
+            setUserEmail(email.value, password.value);
             redirect();
           }
 

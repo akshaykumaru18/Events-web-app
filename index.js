@@ -353,6 +353,7 @@ app.post('/attendEvent', (req, res) => {
 app.get('/events', (req, res) => {
     console.log('API CALL: /events');
     const { host } = req.query;
+    const {user} = req.query;
     const { eventId, emailId } = req.query;
     if (host != null) {
         console.log('Finding events for :' + host);
@@ -442,6 +443,36 @@ app.get('/events', (req, res) => {
             }
         });
 
+    } else if(user != null){
+        console.log('Finding events for :' + user);
+        //QUERIES
+        const GET_events = `SELECT event.EVENT_ID,event.EVENT_NAME, event.EVENT_DESCRIPTION, event.EVENT_IMAGE,event.EVENT_START_DATE,event.EVENT_END_DATE, event.TICKET_PRICE, ea.EVENT_CITY, ec.CATEGORY_ID, c.CATEGORY_NAME, c.CATEGORY_TYPE
+    from EVENT AS event, event_address AS ea, event_category AS ec, category AS c
+    where ea.EVENT_ID = event.EVENT_ID and ec.EVENT_ID = event.EVENT_ID and ec.CATEGORY_ID = c.CATEGORY_ID and event.EVENT_HOST_ID = '${user}'
+    order by(event.EVENT_START_DATE)`;
+        mysql_pool.getConnection(function (err, connection) {
+
+            if (err) {
+                connection.release();
+                console.log('Error getting mysql_pool connection: ' + err);
+
+            } else {
+                connection.query(GET_events, (err, results) => {
+                    if (err) {
+                        return res.send(err);
+                    }
+                    else {
+                        console.log('The results got are :' + results.length);
+                        // for(CITY in results){
+                        //     console.log('The city ' + results[CITY].CITY_NAME);
+                        // }
+                        return res.json({
+                            data: results
+                        })
+                    }
+                });
+            }
+        });
     }
     else {
         //QUERIES
@@ -480,39 +511,72 @@ app.get('/events', (req, res) => {
 });
 app.get('/filtered_events', (req, res) => {
     console.log('API CALL: /filtered_events');
-    const { filteredDate,filteredCategory } = req.query;
+    const { filteredDate } = req.query;
+    const { filteredCategory } = req.query;
+    if(filteredDate != null){
+      //QUERIES
+      console.log('getting all events');
+      const GET_events =
+          `select * from event, event_category, event_category as ec, event_address as ea, category as c,city as ci,state as s, country as cunt
+          where event.EVENT_ID = event_category.EVENT_ID and  ea.EVENT_ID = event.EVENT_ID and c.CATEGORY_ID = ec.CATEGORY_ID and ea.EVENT_CITY = ci.CITY_NAME 
+          and ci.STATE_NAME = s.STATE_NAME and cunt.COUNTRY_NAME = s.COUNTRY_NAME and  DATE(event.EVENT_START_DATE) = '${sqlFormatDateString(filteredDate)}' OR DATE(event.EVENT_END_DATE) = '${sqlFormatDateString(filteredDate)}' order by(event.EVENT_START_DATE)`;
+
+      mysql_pool.getConnection(function (err, connection) {
+
+          if (err) {
+              connection.release();
+              console.log('Error getting mysql_pool connection: ' + err);
+
+          } else {
+              connection.query(GET_events, (err, results) => {
+                  if (err) {
+                      return res.send(err);
+                  }
+                  else {
+                      console.log('The filtered results got are :' + results);
+                      // for(CITY in results){
+                      //     console.log('The city ' + results[CITY].CITY_NAME);
+                      // }
+                      return res.json({
+                          data: results
+                      })
+                  }
+              });
+          }
+      });
+    }else if(filteredCategory != null){
+      //QUERIES
+      console.log('getting all events');
+      const GET_events =
+          `select * from event, event_category, event_category as ec, event_address as ea, category as c,city as ci,state as s, country as cunt
+          where event.EVENT_ID = event_category.EVENT_ID and  ea.EVENT_ID = event.EVENT_ID and c.CATEGORY_ID = ec.CATEGORY_ID and ea.EVENT_CITY = ci.CITY_NAME 
+          and ci.STATE_NAME = s.STATE_NAME and cunt.COUNTRY_NAME = s.COUNTRY_NAME and (ec.CATEGORY_ID = '${filteredCategory}' and
+          ec.EVENT_ID = event.EVENT_ID) order by(event.EVENT_START_DATE)`;
+      mysql_pool.getConnection(function (err, connection) {
+
+          if (err) {
+              connection.release();
+              console.log('Error getting mysql_pool connection: ' + err);
+
+          } else {
+              connection.query(GET_events, (err, results) => {
+                  if (err) {
+                      return res.send(err);
+                  }
+                  else {
+                      console.log('The filtered results got are :' + results);
+                      // for(CITY in results){
+                      //     console.log('The city ' + results[CITY].CITY_NAME);
+                      // }
+                      return res.json({
+                          data: results
+                      })
+                  }
+              });
+          }
+      });
+    }
   
-        //QUERIES
-        console.log('getting all events');
-        const GET_events =
-            `SELECT event.EVENT_ID,event.EVENT_NAME, event.EVENT_DESCRIPTION, event.EVENT_IMAGE, event.EVENT_START_DATE,event.EVENT_END_DATE,event.INVITE_TYPE, event.TICKET_PRICE,event.EVENT_CAPACITY,ea.EVENT_ADDRESS, ea.EVENT_CITY, ec.CATEGORY_ID, c.CATEGORY_NAME, c.CATEGORY_TYPE,state.STATE_NAME,country.COUNTRY_NAME
-        from EVENT AS event, event_address AS ea, event_category AS ec, category AS c, CITY as city, STATE as state, COUNTRY as country
-        where ea.EVENT_ID = event.EVENT_ID and ec.EVENT_ID = event.EVENT_ID and ec.CATEGORY_ID = c.CATEGORY_ID and ea.EVENT_CITY = city.CITY_NAME and city.STATE_NAME = state.STATE_NAME and state.COUNTRY_NAME = country.COUNTRY_NAME 
-        and  DATE(event.EVENT_START_DATE) = '${sqlFormatDateString(filteredDate)}' OR DATE(event.EVENT_END_DATE) = '${sqlFormatDateString(filteredDate)}' OR ec.CATEGORY_ID = '${filteredCategory}'
-        order by(event.EVENT_START_DATE)`;
-        mysql_pool.getConnection(function (err, connection) {
-
-            if (err) {
-                connection.release();
-                console.log('Error getting mysql_pool connection: ' + err);
-
-            } else {
-                connection.query(GET_events, (err, results) => {
-                    if (err) {
-                        return res.send(err);
-                    }
-                    else {
-                        console.log('The results got are :' + results.data);
-                        // for(CITY in results){
-                        //     console.log('The city ' + results[CITY].CITY_NAME);
-                        // }
-                        return res.json({
-                            data: results
-                        })
-                    }
-                });
-            }
-        });
 
     
 
