@@ -56,11 +56,7 @@ app.get('/insertions', (req, res) => {
 });
 
 
-/*
-INSERTION HELPER ENDPOINTS
 
-Note : main purpose of these enpoints are for making it easy to insert the dummy data to db.
-*/
 
 app.post('/login', (req, res) => {
     var emailid = req.body['email']
@@ -315,9 +311,8 @@ app.post('/attendEvent', (req, res) => {
     var user_email_id = req.body['user_email_id'];
     var pD = new Date(payment_date);
 
-    var paymenDateString = `${pD.getFullYear()}-${pD.getMonth()}-${pD.getDay()} ${pD.getUTCHours()}:${pD.getUTCMinutes()}:${pD.getUTCSeconds()}`;
-    console.log(`Date ${paymenDateString}`);
-    var atend_event_query = `CALL attend_event('${event_id}','${user_email_id}','${paymenDateString}','${transaction_status}')`;
+
+    var atend_event_query = `CALL attend_event('${event_id}','${user_email_id}','${payment_date}','UPI','${transaction_status}')`;
 
     console.log('Insert query is : ', atend_event_query);
     mysql_pool.getConnection(function (err, connection) {
@@ -389,11 +384,11 @@ app.get('/events', (req, res) => {
     } else if (eventId != null) {
         console.log('Finding events for id:' + eventId + ' emailId = ' + emailId);
         //QUERIES
-        const GET_events = `SELECT event.EVENT_ID ,event.EVENT_NAME, event.EVENT_DESCRIPTION, event.EVENT_IMAGE, event.EVENT_START_DATE, event.EVENT_END_DATE,
+        const GET_events = `SELECT DISTINCT event.EVENT_ID ,event.EVENT_NAME, event.EVENT_DESCRIPTION, event.EVENT_IMAGE, event.EVENT_START_DATE, event.EVENT_END_DATE,
         event.TICKET_PRICE,event.EVENT_CAPACITY,event.INVITE_TYPE,ea.EVENT_ADDRESS, ea.EVENT_CITY, ec.CATEGORY_ID, c.CATEGORY_NAME,
-         c.CATEGORY_TYPE,state.STATE_NAME,country.COUNTRY_NAME, CASE when event.EVENT_ID = '${eventId}' and ps.EMAIL_ID = '${emailId}' and ps.EVENT_ID = '${eventId}' then 'true' else 'false'  end as USER_BOOKED
-       from EVENT AS event, event_address AS ea, event_category AS ec, category AS c, CITY as city, STATE as state, COUNTRY as country, payment_history AS ps
-       where event.EVENT_ID = '${eventId}' and ea.EVENT_ID = '${eventId}' and ec.EVENT_ID = '${eventId}' and ec.CATEGORY_ID = c.CATEGORY_ID and ea.EVENT_CITY = city.CITY_NAME and
+         c.CATEGORY_TYPE,state.STATE_NAME,country.COUNTRY_NAME, CASE when event.EVENT_ID = '${eventId}' and ps.EMAIL_ID = '${emailId}' and ps.EVENT_ID = '${eventId}' then 'true' else 'false'  end as USER_BOOKED, eh.EMAIL_ID as HOST_EMAIL
+       from EVENT AS event, event_address AS ea, event_category AS ec, category AS c, CITY as city, STATE as state, COUNTRY as country, payment_history AS ps, EVENT_HOST as eh
+       where event.EVENT_ID = '${eventId}' and ea.EVENT_ID = '${eventId}' and ec.EVENT_ID = '${eventId}' and eh.EVENT_ID = '${eventId}' and ec.CATEGORY_ID = c.CATEGORY_ID and ea.EVENT_CITY = city.CITY_NAME and
         city.STATE_NAME = state.STATE_NAME and state.COUNTRY_NAME = country.COUNTRY_NAME
        order by(event.EVENT_START_DATE)`;
 
@@ -602,6 +597,35 @@ app.get('/categories', (req, res) => {
                     // for(CITY in results){
                     //     console.log('The city ' + results[CITY].CITY_NAME);
                     // }
+                    return res.json({
+                        data: results
+                    })
+                }
+            });
+        }
+    });
+
+});
+
+app.get('/attendeeList', (req, res) => {
+    const {eventId} = req.body;
+    console.log('API CALL: /attendeeList');
+    //QUERIES
+    const GET_CATEGORIES = `SELECT pt.EMAIL_ID, ph.PAYMENT_DATE FROM purchase_ticket as pt, payment_history as ph WHERE pt.EVENT_ID = 'EVENTID00015' and ph.EVENT_ID = 'EVENTID00015'`;
+    mysql_pool.getConnection(function (err, connection) {
+
+        if (err) {
+            connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+
+        } else {
+            connection.query(GET_CATEGORIES, (err, results) => {
+                if (err) {
+                    return res.send(err);
+                }
+                else {
+                    console.log('The attendee results got are :' + results);
+                    connection.release();
                     return res.json({
                         data: results
                     })

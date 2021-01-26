@@ -428,6 +428,13 @@ function loadYourEvents() {
     }).then(data => {
         // Work with JSON data here
         eventsList = data['data'];
+        if(eventsList.length != 0){
+            var noEventsNode = document.getElementById("no-events-hosted");
+            noEventsNode.style.display = "none";
+        }else{
+            var noEventsNode = document.getElementById("no-events-hosted");
+            noEventsNode.style.display = "block";
+        }
         for (i in eventsList) {
             //console.log(eventsList[i]);
             //  console.log(`Event Name : ${eventsList[i].EVENT_NAME} \n 
@@ -539,16 +546,14 @@ function loadEventDetails() {
     
    
     fetch(apiUrl).then(response => {
+       
         return response.json();
     }).then(data => {
         // Work with JSON data here
-        console.log(data);
+        //console.log(data);
         var eventsList = data['data'];
         for (i in eventsList) {
             console.log(eventsList[i]);
-           
-
-       
             EVENT_ID.value = eventsList[i].EVENT_ID;
             EVENT_NAME.value = eventsList[i].EVENT_NAME;
             var startDate = returnDateTimeString(eventsList[i].EVENT_START_DATE);
@@ -588,9 +593,6 @@ function loadEventDetails() {
             cityNode.appendChild(textNode);
             citySelectNode.appendChild(cityNode);
 
-         
-
-           
             EVENT_HOST_ID.value = eventsList[i].EVENT_HOST_ID;
             INVITE_TYPE.value = eventsList[i].INVITE_TYPE;
             EVENT_CAPACITY.value = eventsList[i].EVENT_CAPACITY;
@@ -600,10 +602,54 @@ function loadEventDetails() {
             selectedCategoryNode.value = eventsList[i].CATEGORY_NAME;
             selectedCategoryIDNode.value = eventsList[i].CATEGORY_ID;
 
-        }
+        }    
+        
 
     }).catch(err => {
         //alert(err);
+        // Do something for an error here
+    });
+    loadEventAttendeeList();
+}
+
+
+function loadEventAttendeeList(){
+    //http://localhost:5000/events?eventId=
+   // alert('getting attendee list');
+    var attendeesFetchUrl = 'http://localhost:5000/attendeeList?eventId='+ localStorage.getItem("update_event_id");
+    fetch(attendeesFetchUrl).then(response => {
+        return response.json();
+    }).then(data => {
+        // Work with JSON data here
+        attendeeList = data;
+        var attendeeListNode = document.getElementById("event-attendee-list");
+        //console.log(data['data']);
+        for (i in attendeeList['data']) {
+            console.log(attendeeList['data'][i]);
+            // console.log(`Category Name : ${categoriesList[i].CATEGORY_NAME} \n 
+            // CATEGORY_TYPE : ${categoriesList[i].CATEGORY_TYPE}`);
+            var attendeeNode = document.createElement("li");
+            attendeeNode.setAttribute("id", attendeeList['data'][i].EMAIL_ID);
+           
+            attendeeNode.classList.add("list-group-item");
+           
+
+
+            var h4TitleNode = document.createElement("h5");
+            var titleTextNode = document.createTextNode(attendeeList['data'][i].EMAIL_ID);
+            h4TitleNode.appendChild(titleTextNode);
+            attendeeNode.appendChild(h4TitleNode);
+
+            var h5TitleNode = document.createElement("h6");
+            var paymentDateTextNode = document.createTextNode(sqlFormatDateString(attendeeList['data'][i].PAYMENT_DATE));
+            h5TitleNode.appendChild(paymentDateTextNode)
+            attendeeNode.appendChild(h5TitleNode);
+            attendeeListNode.appendChild(attendeeNode);
+
+        }
+        
+    }).catch(err => {
+        alert(err);
         // Do something for an error here
     });
 }
@@ -628,7 +674,7 @@ addEventForm.addEventListener('submit', (event) => {
     var EVENT_STATE = document.forms["AddEventForm"]["EVENT_STATE"];
     var EVENT_COUNTRY = document.forms["AddEventForm"]["EVENT_COUNTRY"];
     var EVENT_HOST_ID = document.forms["AddEventForm"]["EVENT_HOST_ID"];
-    var INVITE_TYPE = document.forms["AddEventForm"]["INVITE_TYPE"];
+    var INVITE_TYPE = document.forms/["AddEventForm"]["INVITE_TYPE"];
     var EVENT_CAPACITY = document.forms["AddEventForm"]["EVENT_CAPACITY"];
     var EVENT_CATEGORY = document.forms["AddEventForm"]["EVENT_CATEGORY"];
     var EVENT_CATEGORY_ID = document.forms["AddEventForm"]["EVENT_CATEGORY_ID"];

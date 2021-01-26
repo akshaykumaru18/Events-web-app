@@ -133,203 +133,277 @@
 
   <div class="container">
 
-    <h2>UPDATE EVENT </h2>
+    <div class="row">
+      <div class="col-md-7 mb4">
+        <h2>UPDATE EVENT </h2>
+        <form id="UpdateEventForm" name="UpdateEventForm" method="POST">
+          <div class="row" style="display: none;">
+            <div class="col-25">
+              <label for="Event Name">Event Name</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="EVENT_ID" name="EVENT_ID" placeholder="Event Title" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="Event Name">Event Name</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="EVENT_NAME" name="EVENT_NAME" placeholder="Event Title" required>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="Event image">Event image</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="EVENT_IMAGE" name="EVENT_IMAGE" placeholder="Event IMAGE URL" required>
+            </div>
+          </div>
 
-    <form id="UpdateEventForm" name="UpdateEventForm" method="POST">
-      <div class="row" style="display: none;">
-        <div class="col-25">
-          <label for="Event Name">Event Name</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="EVENT_ID" name="EVENT_ID" placeholder="Event Title" required>
-        </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_START_DATE">Event Start date</label>
+            </div>
+            <div class="col-75">
+              <input type="datetime-local" id="EVENT_START_DATE" name="EVENT_START_DATE" placeholder="Event Start date"
+                onchange="checkDate(this)" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_END_DATE">Event end date</label>
+            </div>
+            <div class="col-75">
+              <input type="datetime-local" id="EVENT_END_DATE" name="EVENT_END_DATE" placeholder="Event end date"
+                onchange="checkDate(this)" required>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_DESCRIPTION">Event Description</label>
+            </div>
+            <div class="col-75">
+              <textarea id="EVENT_DESCRIPTION" name="EVENT_DESCRIPTION" placeholder="Write about event  (max 200 words)"
+                style="height:100px"></textarea>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-25">
+              <label for="TICKET_PRICE">Ticket Price</label>
+            </div>
+            <div class="col-75">
+              <input type="number" id="TICKET_PRICE" name="TICKET_PRICE" placeholder="Ticket price" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_ADDRESS">Event address</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="EVENT_ADDRESS" name="EVENT_ADDRESS" placeholder="event address" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_COUNTRY">Country</label>
+            </div>
+            <div class="col-75">
+              <select id="EVENT_COUNTRY" name="EVENT_COUNTRY" onchange="loadStatesForCountry()" required>
+
+              </select>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_STATE">State</label>
+            </div>
+            <div class="col-75">
+              <select id="EVENT_STATE" name="EVENT_STATE" onchange="loadCitiesForStates()" required>
+
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_CITY">City</label>
+            </div>
+            <div class="col-75">
+              <select id="EVENT_CITY" name="EVENT_CITY" required>
+
+              </select>
+            </div>
+          </div>
+
+
+          <div class="row" style="display: none;">
+            <div class="col-25">
+              <label for="EVENT_HOST_ID">Event host email id</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="EVENT_HOST_ID" name="EVENT_HOST_ID" placeholder="enter host email address"
+                required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="INVITE_TYPE">Event Invite type</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="INVITE_TYPE" name="INVITE_TYPE" placeholder="enter invite type" required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_CAPACITY">Event Capacity</label>
+            </div>
+            <div class="col-75">
+              <input type="number" id="EVENT_CAPACITY" name="EVENT_CAPACITY" placeholder="event accomodation size"
+                required>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_CATEGORIES">Event Categories</label>
+            </div>
+            <div class="col-75">
+              <table>
+                <tr>
+                  <td><input type="text" name="category_search" id="category_search"
+                      style="margin-bottom: 10px; width: 400px;" placeholder="Search Category"
+                      onkeyup="searchMatchCategories()"></td>
+                  <td><button
+                      style="background-color: black;height: 50px;width: 100px;color: white;text-align: center;font-size: medium;margin-top: 2px;">Search</button>
+                  </td>
+                </tr>
+              </table>
+              <ul class="list-group" id="event-category-list">
+
+              </ul>
+
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-25">
+              <label for="EVENT_CATEGORY">Selected Category</label>
+            </div>
+            <div class="col-75">
+              <input type="text" id="SELECTED_EVENT_CATEGORY" name="EVENT_CATEGORY">
+              <input type="text" id="SELECTED_EVENT_CATEGORY_ID" name="EVENT_CATEGORY_ID" style="display: none;">
+              </input>
+            </div>
+          </div>
+
+
+
+          <div class="col-md-4">
+            <input type="submit" value="Submit">
+          </div>
+
+
+
+          <div class="alert danger-alert" id="danger-alert" style="display: none;">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong id="danger-alert-message">Create Account Failed!</strong>
+          </div>
+          <div class="alert success-alert" id="success-alert" style="display: none;">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            <strong id="success-alert-message">Create Account Success!</strong>
+          </div>
+        </form>
       </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="Event Name">Event Name</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="EVENT_NAME" name="EVENT_NAME" placeholder="Event Title" required>
-        </div>
+      <div class="col-md-4 mb4">
+        <h4>DELETE EVENT</h4>
+        <button type="button" onclick="deleteEvent()" class="btn btn-danger"
+          style="color: white;padding: 20px 40px;border: none;border-radius: 4px;cursor: pointer;float: center;">DELETE
+          EVENT</button>
+        <hr>
+        <h4>ATTENDEE LIST</h4>
+        <ul class="list-group" id="event-attendee-list" style=" overflow-y: auto;height: 300px;" onload="loadEventAttendeeList()">
+
+          <!-- <li class="list-group-item">
+
+            <h5>Name here</h4>
+            <h6>payment date</h3>
+            </li> -->
+          
+
+        </ul>
+
+        <hr>
+        <h4>DOWNLOAD LIST</h4>
+        <button type="button" onclick="downloadList()" class="btn btn-success"
+          style="color: white;padding: 20px 40px;border: none;border-radius: 4px;cursor: pointer;float: center;">DOWNLOAD</button>
       </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="Event image">Event image</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="EVENT_IMAGE" name="EVENT_IMAGE" placeholder="Event IMAGE URL" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_START_DATE">Event Start date</label>
-        </div>
-        <div class="col-75">
-          <input type="datetime-local" id="EVENT_START_DATE" name="EVENT_START_DATE" placeholder="Event Start date" onchange="checkDate(this)"
-            required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_END_DATE">Event end date</label>
-        </div>
-        <div class="col-75">
-          <input type="datetime-local" id="EVENT_END_DATE" name="EVENT_END_DATE" placeholder="Event end date" onchange="checkDate(this)" required>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_DESCRIPTION">Event Description</label>
-        </div>
-        <div class="col-75">
-          <textarea id="EVENT_DESCRIPTION" name="EVENT_DESCRIPTION" placeholder="Write about event  (max 200 words)"
-            style="height:100px"></textarea>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-25">
-          <label for="TICKET_PRICE">Ticket Price</label>
-        </div>
-        <div class="col-75">
-          <input type="number" id="TICKET_PRICE" name="TICKET_PRICE" placeholder="Ticket price" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_ADDRESS">Event address</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="EVENT_ADDRESS" name="EVENT_ADDRESS" placeholder="event address" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_COUNTRY">Country</label>
-        </div>
-        <div class="col-75">
-          <select id="EVENT_COUNTRY" name="EVENT_COUNTRY" onchange="loadStatesForCountry()" required>
-
-          </select>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_STATE">State</label>
-        </div>
-        <div class="col-75">
-          <select id="EVENT_STATE" name="EVENT_STATE" onchange="loadCitiesForStates()" required>
-
-          </select>
-        </div>
-      </div>
-
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_CITY">City</label>
-        </div>
-        <div class="col-75">
-          <select id="EVENT_CITY" name="EVENT_CITY" required>
-
-          </select>
-        </div>
-      </div>
-
-
-      <div class="row" style="display: none;">
-        <div class="col-25">
-          <label for="EVENT_HOST_ID">Event host email id</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="EVENT_HOST_ID" name="EVENT_HOST_ID" placeholder="enter host email address" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="INVITE_TYPE">Event Invite type</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="INVITE_TYPE" name="INVITE_TYPE" placeholder="enter invite type" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_CAPACITY">Event Capacity</label>
-        </div>
-        <div class="col-75">
-          <input type="number" id="EVENT_CAPACITY" name="EVENT_CAPACITY" placeholder="event accomodation size" required>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_CATEGORIES">Event Categories</label>
-        </div>
-        <div class="col-75">
-          <table>
-            <tr>
-              <td><input type="text" name="category_search" id="category_search"
-                  style="margin-bottom: 10px; width: 400px;" placeholder="Search Category"
-                  onkeyup="searchMatchCategories()"></td>
-              <td><button
-                  style="background-color: black;height: 50px;width: 100px;color: white;text-align: center;font-size: medium;margin-top: 2px;">Search</button>
-              </td>
-            </tr>
-          </table>
-          <ul class="list-group" id="event-category-list">
-
-          </ul>
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-25">
-          <label for="EVENT_CATEGORY">Selected Category</label>
-        </div>
-        <div class="col-75">
-          <input type="text" id="SELECTED_EVENT_CATEGORY" name="EVENT_CATEGORY">
-          <input type="text" id="SELECTED_EVENT_CATEGORY_ID" name="EVENT_CATEGORY_ID" style="display: none;">
-          </input>
-        </div>
-      </div>
-
-
-      <div class="row" style="margin-left: 300px; margin-top: 30px;">
-        <div class="col-md-4">
-          <input type="submit" value="Submit">
-        </div>
-        <div class="col-md-4">
-          <button type="button" onclick="deleteEvent()" class="btn btn-danger" style="color: white;padding: 20px 40px;border: none;border-radius: 4px;cursor: pointer;float: center;">DELETE EVENT</button>
-        </div>
-        
-      </div>
-      <div class="alert danger-alert" id="danger-alert" style="display: none;">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong id="danger-alert-message">Create Account Failed!</strong>
-      </div>
-      <div class="alert success-alert" id="success-alert" style="display: none;">
-        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-        <strong id="success-alert-message">Create Account Success!</strong>
-      </div>
-    </form>
-    <div>
-     
     </div>
+
+
   </div>
 
   <script src="/js/event-host-page.js"></script>
+  <script src="/js/xlsx.full.min.js"></script>
+  <script src="/js/FileSaver.min.js"></script>
   <SCript>
+
+    function downloadList(){
+       var wb = XLSX.utils.book_new();
+       wb.Props = {
+          Title : "Attendance List",
+          Subject : "Attendance list"
+       };
+       wb.SheetNames.push("Test Sheet");
+       var ws_data = [];
+       var attendeesFetchUrl = 'http://localhost:5000/attendeeList?eventId='+ localStorage.getItem("update_event_id");
+    fetch(attendeesFetchUrl).then(response => {
+        return response.json();
+    }).then(data => {
+        // Work with JSON data here
+        attendeeList = data;
+        var attendeeListNode = document.getElementById("event-attendee-list");
+        //console.log(data['data']);
+        var title_row = ['User Email ID','Payment Date'];
+        ws_data.push(title_row);
+        for (i in attendeeList['data']) {
+          //sqlFormatDateString(attendeeList['data'][i].PAYMENT_DATE)
+          //attendeeList['data'][i].EMAIL_ID
+           var user_row = [attendeeList['data'][i].EMAIL_ID,sqlFormatDateString(attendeeList['data'][i].PAYMENT_DATE)];
+           ws_data.push(user_row);
+         
+          
+
+        }
+         var ws = XLSX.utils.aoa_to_sheet(ws_data);
+           wb.Sheets["Test Sheet"] = ws;
+          var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
+          saveAs(new Blob([s2ab(wbout)],{type:"application/octet-stream"}), 'attendance.xlsx');
+        
+    }).catch(err => {
+        alert(err);
+        // Do something for an error here
+    });  
+      
+    }
+
+    function s2ab(s) { 
+                var buf = new ArrayBuffer(s.length); //convert s to arrayBuffer
+                var view = new Uint8Array(buf);  //create uint8array as viewer
+                for (var i=0; i<s.length; i++) view[i] = s.charCodeAt(i) & 0xFF; //convert to octet
+                return buf;    
+  }
     let updateEventForm = document.getElementById("UpdateEventForm");
     updateEventForm.addEventListener('submit', (event) => {
       //alert('click received');
@@ -387,7 +461,7 @@
             messageNode.innerHTML = result['data']['message'];
             dangerAlertNode.style.display = "block";
           } else {
-           
+
             var successAlert = document.getElementById('success-alert');
             var messageNode = document.getElementById("success-alert-message");
             messageNode.innerHTML = "Event Updated Successfully";
@@ -404,13 +478,13 @@
     });
 
 
-    function deleteEvent(){
+    function deleteEvent() {
       var EVENT_ID = document.forms["UpdateEventForm"]["EVENT_ID"];
       var data = {
-        EVENT_ID:EVENT_ID.value
+        EVENT_ID: EVENT_ID.value
       };
       $.ajax({
-        url: 'http://localhost:5000/events/delete?event_id='+EVENT_ID.value,
+        url: 'http://localhost:5000/events/delete?event_id=' + EVENT_ID.value,
         success: function (result) {
           console.log(result);
           var success = result['data']['success'];
@@ -422,7 +496,7 @@
             messageNode.innerHTML = result['data']['message'];
             dangerAlertNode.style.display = "block";
           } else {
-           
+
             var successAlert = document.getElementById('success-alert');
             var messageNode = document.getElementById("success-alert-message");
             messageNode.innerHTML = "Event Deleted Successfully";
@@ -438,12 +512,13 @@
       })
     }
 
+    
 
-    function sqlFormatDateString(date){
+    function sqlFormatDateString(date) {
 
-    var d = new Date(String(date));
-    var eventDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-    return eventDate;
+      var d = new Date(String(date));
+      var eventDate = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+      return eventDate;
     }
   </SCript>
 </body>

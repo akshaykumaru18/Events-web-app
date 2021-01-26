@@ -55,7 +55,11 @@ function loadDetails(){
             if(String(eventsList[i].USER_BOOKED) == "true"){
               bookedButtonNode.style.display = "block";
               attendButtonNode.style.display = "none";
-            }else{
+            } else if(eventsList[i].HOST_EMAIL == localStorage.getItem('user_email')){
+              bookedButtonNode.style.display = "none";
+              attendButtonNode.style.display = "none";
+            }
+            else{
               attendButtonNode.style.display = "block";
               bookedButtonNode.style.display = "none";
             }
@@ -71,7 +75,7 @@ function makePayment(){
     //alert('making payment');
     var data = {
         event_id: localStorage.getItem("attend_event_id"),
-        PAYMENT_DATE: new Date(),
+        PAYMENT_DATE: sqlFormatDateString(new Date()),
         transaction_status:"SUCCESS",
         user_email_id:localStorage.getItem("user_email")
       }
@@ -104,6 +108,13 @@ function makePayment(){
       })
 
 }
+
+function sqlFormatDateString(date){
+
+  var d = new Date(String(date));
+  var eventDate = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+  return eventDate;
+  }
 function returnAttendEventDate(date){
     
   var d = new Date(String(date));
