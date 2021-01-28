@@ -538,7 +538,7 @@ function loadEventDetails() {
     var EVENT_HOST_ID = document.forms["UpdateEventForm"]["EVENT_HOST_ID"];
     var INVITE_TYPE = document.forms["UpdateEventForm"]["INVITE_TYPE"];
     var EVENT_CAPACITY = document.forms["UpdateEventForm"]["EVENT_CAPACITY"];
-    var EVENT_CATEGORY = document.forms["UpdateEventForm"]["EVENT_CATEGORY"];
+    var EVENT_CATEGORY = document.forms["UpdateEventForm"]["SELECTED_EVENT_CATEGORY"];
     var EVENT_CATEGORY_ID = document.forms["UpdateEventForm"]["SELECTED_EVENT_CATEGORY_ID"];
     EVENT_HOST_ID.value = localStorage.getItem("user_email");
 
@@ -564,6 +564,10 @@ function loadEventDetails() {
             EVENT_IMAGE.value = eventsList[i].EVENT_IMAGE;
             TICKET_PRICE.value = eventsList[i].TICKET_PRICE;
             EVENT_ADDRESS.value = eventsList[i].EVENT_ADDRESS;
+
+            EVENT_CAPACITY.value = eventsList[i].EVENT_CAPACITY;
+            EVENT_CATEGORY.value = eventsList[i].CATEGORY_NAME;
+            EVENT_CATEGORY_ID.value = eventsList[i].CATEGORY_ID;
             loadCountries();
             var countrySelectedNode = document.getElementById('EVENT_COUNTRY');
             var countryNode = document.createElement("option");
@@ -592,15 +596,16 @@ function loadEventDetails() {
             var textNode = document.createTextNode(eventsList[i].EVENT_CITY);
             cityNode.appendChild(textNode);
             citySelectNode.appendChild(cityNode);
-
-            EVENT_HOST_ID.value = eventsList[i].EVENT_HOST_ID;
+           // alert(`${eventsList[i].CATEGORY_NAME}`);
+            EVENT_HOST_ID.value = eventsList[i].HOST_EMAIL;
             INVITE_TYPE.value = eventsList[i].INVITE_TYPE;
-            EVENT_CAPACITY.value = eventsList[i].EVENT_CAPACITY;
+            
             EVENT_CATEGORY.value = eventsList[i].CATEGORY_NAME;
-            var selectedCategoryNode = document.getElementById("SELECTED_EVENT_CATEGORY");
-            var selectedCategoryIDNode = document.getElementById("SELECTED_EVENT_CATEGORY_ID");
-            selectedCategoryNode.value = eventsList[i].CATEGORY_NAME;
-            selectedCategoryIDNode.value = eventsList[i].CATEGORY_ID;
+            //var selectedCategoryNode = document.getElementById("SELECTED_EVENT_CATEGORY");
+            //var selectedCategoryIDNode = document.getElementById("SELECTED_EVENT_CATEGORY_ID");
+            EVENT_CATEGORY.value = eventsList[i].CATEGORY_NAME;
+            EVENT_CATEGORY_ID.value = eventsList[i].CATEGORY_ID;
+            
 
         }    
         
