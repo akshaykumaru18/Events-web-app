@@ -301,8 +301,8 @@
         <label for="confirmPassword"><b>Confirm Password</b></label>
         <input type="password" placeholder="Enter Password" name="confirmPassword" required>
 
-        <label for="phone"><b>Phone Number</b></label>
-        <input type="number" placeholder="Phone Number" name="phoneNumber" required>
+        <!-- <label for="phone"><b>Phone Number</b></label>
+        <input type="number" placeholder="Phone Number" name="phoneNumber" required> -->
 
         <label for="datetime"><b>Date of Birth</b></label>
         <input type="date" placeholder="Date of Birth" name="dateOfBirth" required>
@@ -415,11 +415,11 @@
       let confirmPassword = signUpForm.elements['confirmPassword']
       let fname = signUpForm.elements['fname'];
       let lname = signUpForm.elements['lname'];
-      let phoneNumber = signUpForm.elements['phoneNumber'];
+      //let phoneNumber = signUpForm.elements['phoneNumber'];
       let dateOfBirth = signUpForm.elements['dateOfBirth'];
       let userCity = signUpForm.elements['EVENT_CITY'];
 
-      alert(email.value + " : " + password.value + " : " + confirmPassword.value + " : " + fname.value + " : " + lname.value + " : " + phoneNumber.value + " : " + dateOfBirth.value);
+     // alert(email.value + " : " + password.value + " : " + confirmPassword.value + " : " + fname.value + " : " + lname.value + " : " + phoneNumber.value + " : " + dateOfBirth.value);
 
       if (password.value != confirmPassword.value) {
         var dangerAlertNode = document.getElementById('danger-alert2');
@@ -435,7 +435,7 @@
         password: password.value,
         fname: fname.value,
         lname: lname.value,
-        phoneNumber: phoneNumber.value,
+        phoneNumber: null,
         dateOfBirth: dateOfBirth.value,
         userCity: userCity.value
       }

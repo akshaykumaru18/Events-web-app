@@ -11,6 +11,7 @@ function loadDetails(){
         return response.json();
     }).then(data => {
         // Work with JSON data here
+        console.log(data['data']);
         eventsList = data['data'];
         for (i in eventsList) {
             console.log(eventsList[i]);
@@ -33,6 +34,11 @@ function loadDetails(){
             //event-address
             var eventAddressFooter = document.getElementById("event-address")
             eventAddressFooter.innerText = `${eventsList[i].EVENT_ADDRESS}, ${eventsList[i].EVENT_CITY}, ${eventsList[i].STATE_NAME}, ${eventsList[i].COUNTRY_NAME}`;
+            
+            //event-host
+            var eventHostNode = document.getElementById("host-address");
+            eventHostNode.innerText = `${eventsList[i].HOST_EMAIL}`;
+            
             //event-start-end-date
             var eventStartEndDate = document.getElementById("event-start-end-date");
             eventStartEndDate.innerText = `${returnAttendEventDate(eventsList[i].EVENT_START_DATE)} to ${returnAttendEventDate(eventsList[i].EVENT_END_DATE)}`;

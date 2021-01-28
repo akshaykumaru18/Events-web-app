@@ -616,6 +616,7 @@ function loadEventDetails() {
 function loadEventAttendeeList(){
     //http://localhost:5000/events?eventId=
    // alert('getting attendee list');
+   //alert(localStorage.getItem("update_event_id"));
     var attendeesFetchUrl = 'http://localhost:5000/attendeeList?eventId='+ localStorage.getItem("update_event_id");
     fetch(attendeesFetchUrl).then(response => {
         return response.json();
@@ -693,7 +694,7 @@ addEventForm.addEventListener('submit', (event) => {
       EVENT_STATE: EVENT_STATE.value,
       EVENT_COUNTRY: EVENT_COUNTRY.value,
       EVENT_HOST_ID: EVENT_HOST_ID.value,
-      INVITE_TYPE: INVITE_TYPE.value,
+      INVITE_TYPE: 'PUBLIC',
       EVENT_CAPACITY: EVENT_CAPACITY.value,
       EVENT_CATEGORY: EVENT_CATEGORY.value,
       EVENT_CATEGORY_ID: EVENT_CATEGORY_ID.value

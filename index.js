@@ -174,7 +174,7 @@ app.post('/events/add', (req, res) => {
     var event_city = req.body['EVENT_CITY'];
     var event_state = req.body['EVENT_STATE'];
     var event_country = req.body['EVENT_COUNTRY'];
-    var event_host_id = 'akshayapsangi123@gmail.com'; //req.body['EVENT_HOST_ID'];
+    var event_host_id = req.body['EVENT_HOST_ID'];
     var invite_type = req.body['INVITE_TYPE']
     var capacity = req.body['EVENT_CAPACITY'];
     var category = req.body['EVENT_CATEGORY'];
@@ -260,7 +260,7 @@ app.post('/updateEvent', (req, res) => {
     var event_city = req.body['EVENT_CITY'];
     var event_state = req.body['EVENT_STATE'];
     var event_country = req.body['EVENT_COUNTRY'];
-    var event_host_id = 'akshayapsangi123@gmail.com'; //req.body['EVENT_HOST_ID'];
+    var event_host_id = req.body['EVENT_HOST_ID'];
     var invite_type = req.body['INVITE_TYPE']
     var capacity = req.body['EVENT_CAPACITY'];
     var category = req.body['EVENT_CATEGORY'];
@@ -611,7 +611,7 @@ app.get('/attendeeList', (req, res) => {
     const {eventId} = req.body;
     console.log('API CALL: /attendeeList');
     //QUERIES
-    const GET_CATEGORIES = `SELECT pt.EMAIL_ID, ph.PAYMENT_DATE FROM purchase_ticket as pt, payment_history as ph WHERE pt.EVENT_ID = 'EVENTID00015' and ph.EVENT_ID = 'EVENTID00015'`;
+    const GET_CATEGORIES = `SELECT pt.EMAIL_ID, ph.PAYMENT_DATE FROM purchase_ticket as pt, payment_history as ph WHERE pt.EVENT_ID = '${eventId}' and ph.EVENT_ID = '${eventId}'`;
     mysql_pool.getConnection(function (err, connection) {
 
         if (err) {
