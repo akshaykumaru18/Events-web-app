@@ -354,9 +354,7 @@
 
   </div>
 
-  <script src="/js/event-host-page.js"></script>
-  <script src="/js/xlsx.full.min.js"></script>
-  <script src="/js/FileSaver.min.js"></script>
+
   <SCript>
 
     function downloadList(){
@@ -520,7 +518,11 @@
       var eventDate = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')} ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
       return eventDate;
     }
-  </SCript>
+  </Script>
+
+<script src="/js/event-host-page.js"></script>
+<script src="/js/xlsx.full.min.js"></script>
+<script src="/js/FileSaver.min.js"></script>
 </body>
 
 </html>

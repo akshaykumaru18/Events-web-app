@@ -385,12 +385,15 @@ app.get('/events', (req, res) => {
         console.log('Finding events for id:' + eventId + ' emailId = ' + emailId);
         //QUERIES
         const GET_events = `SELECT DISTINCT event.EVENT_ID ,event.EVENT_NAME, event.EVENT_DESCRIPTION, event.EVENT_IMAGE, event.EVENT_START_DATE, event.EVENT_END_DATE,
-        event.TICKET_PRICE,event.EVENT_CAPACITY,event.INVITE_TYPE,ea.EVENT_ADDRESS, ea.EVENT_CITY, ec.CATEGORY_ID, c.CATEGORY_NAME,
-         c.CATEGORY_TYPE,state.STATE_NAME,country.COUNTRY_NAME, CASE when event.EVENT_ID = '${eventId}' and ps.EMAIL_ID = '${emailId}' and ps.EVENT_ID = '${eventId}' then 'true' else 'false'  end as USER_BOOKED, eh.EMAIL_ID as HOST_EMAIL
-       from EVENT AS event, event_address AS ea, event_category AS ec, category AS c, CITY as city, STATE as state, COUNTRY as country, payment_history AS ps, EVENT_HOST as eh
-       where event.EVENT_ID = '${eventId}' and ea.EVENT_ID = '${eventId}' and ec.EVENT_ID = '${eventId}' and eh.EVENT_ID = '${eventId}' and ec.CATEGORY_ID = c.CATEGORY_ID and ea.EVENT_CITY = city.CITY_NAME and
+        event.TICKET_PRICE,event.EVENT_CAPACITY,event.INVITE_TYPE,ea.EVENT_ADDRESS, ea.EVENT_CITY, ec.CATEGORY_ID, c.CATEGORY_NAME,eh.EMAIL_ID as HOST_EMAIL,
+         c.CATEGORY_TYPE,state.STATE_NAME,country.COUNTRY_NAME,eh.EMAIL_ID as HOST_EMAIL
+       from EVENT AS event, event_address AS ea, event_category AS ec, category AS c, CITY as city, STATE as state, COUNTRY as country, EVENT_HOST as eh
+       where event.EVENT_ID = '${eventId}' and ea.EVENT_ID = '${eventId}' and ec.EVENT_ID = '${eventId}' and eh.EVENT_ID = '${eventId}' AND eh.EVENT_ID = '${eventId}' and ec.CATEGORY_ID = c.CATEGORY_ID and ea.EVENT_CITY = city.CITY_NAME and
         city.STATE_NAME = state.STATE_NAME and state.COUNTRY_NAME = country.COUNTRY_NAME
        order by(event.EVENT_START_DATE)`;
+
+
+
 
         /*
         actual query
@@ -608,8 +611,9 @@ app.get('/categories', (req, res) => {
 });
 
 app.get('/attendeeList', (req, res) => {
-    const {eventId} = req.body;
-    console.log('API CALL: /attendeeList');
+    const {eventId} = req.query;
+    
+    console.log('API CALL: /attendeeList \t' + eventId);
     //QUERIES
     const GET_CATEGORIES = `SELECT pt.EMAIL_ID, ph.PAYMENT_DATE FROM purchase_ticket as pt, payment_history as ph WHERE pt.EVENT_ID = '${eventId}' and ph.EVENT_ID = '${eventId}'`;
     mysql_pool.getConnection(function (err, connection) {
@@ -625,7 +629,7 @@ app.get('/attendeeList', (req, res) => {
                 }
                 else {
                     console.log('The attendee results got are :' + results);
-                    connection.release();
+                    //connection.release();
                     return res.json({
                         data: results
                     })
@@ -720,10 +724,10 @@ app.get('/countries', (req, res) => {
                     return res.send(err);
                 }
                 else {
-                    console.log('The COUNTRY results got are :' + results.length);
-                    for (i in results) {
-                        console.log('The COUNTRY ' + results[i].COUNTRY_NAME);
-                    }
+                    // console.log('The COUNTRY results got are :' + results.length);
+                    // for (i in results) {
+                    //     console.log('The COUNTRY ' + results[i].COUNTRY_NAME);
+                    // }
                     return res.json({
                         data: results
                     })

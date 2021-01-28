@@ -523,7 +523,7 @@ function setEventId(event_id) {
 }
 
 function loadEventDetails() {
-   
+    loadEventAttendeeList();
     var EVENT_ID = document.forms["UpdateEventForm"]["EVENT_ID"];
     var EVENT_NAME = document.forms["UpdateEventForm"]["EVENT_NAME"];
     var EVENT_IMAGE = document.forms["UpdateEventForm"]["EVENT_IMAGE"];
@@ -614,7 +614,7 @@ function loadEventDetails() {
         //alert(err);
         // Do something for an error here
     });
-    loadEventAttendeeList();
+   
 }
 
 
@@ -623,13 +623,14 @@ function loadEventAttendeeList(){
    // alert('getting attendee list');
    //alert(localStorage.getItem("update_event_id"));
     var attendeesFetchUrl = 'http://localhost:5000/attendeeList?eventId='+ localStorage.getItem("update_event_id");
+  //alert(attendeesFetchUrl);
     fetch(attendeesFetchUrl).then(response => {
         return response.json();
     }).then(data => {
         // Work with JSON data here
         attendeeList = data;
         var attendeeListNode = document.getElementById("event-attendee-list");
-        //console.log(data['data']);
+        console.log(attendeeList);
         for (i in attendeeList['data']) {
             console.log(attendeeList['data'][i]);
             // console.log(`Category Name : ${categoriesList[i].CATEGORY_NAME} \n 
