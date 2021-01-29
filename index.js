@@ -447,7 +447,7 @@ app.get('/events', (req, res) => {
         //QUERIES
         const GET_events = `SELECT event.EVENT_ID,event.EVENT_NAME, event.EVENT_DESCRIPTION, event.EVENT_IMAGE,event.EVENT_START_DATE,event.EVENT_END_DATE, event.TICKET_PRICE, ea.EVENT_CITY, ec.CATEGORY_ID, c.CATEGORY_NAME, c.CATEGORY_TYPE
     from EVENT AS event, event_address AS ea, event_category AS ec, category AS c, payment_history ps
-    where ea.EVENT_ID = event.EVENT_ID and ec.EVENT_ID = event.EVENT_ID and ec.CATEGORY_ID = c.CATEGORY_ID and ps.event_id = event.event_id
+    where ea.EVENT_ID = event.EVENT_ID and ec.EVENT_ID = event.EVENT_ID and ec.CATEGORY_ID = c.CATEGORY_ID and ps.event_id = event.event_id and ps.email_id = '${user}'
     order by(event.EVENT_START_DATE)`;
         mysql_pool.getConnection(function (err, connection) {
 

@@ -26,12 +26,14 @@ function loadUserEvents() {
   }).then(data => {
       // Work with JSON data here
       eventsList = data['data'];
+      var noEventsNode = document.getElementById("no-events-booked");
+      var eventListNode = document.getElementById("your-events-list");
       if(eventsList.length == 0){
-            var noEventsNode = document.getElementById("no-events-booked");
-            var eventListNode = document.getElementById("your-events-list");
+            
             noEventsNode.style.display = "block";
             eventListNode.style.display = "none";
       }else{
+        noEventsNode.style.display = "none";
         for (i in eventsList) {
             //console.log(eventsList[i]);
             //  console.log(`Event Name : ${eventsList[i].EVENT_NAME} \n 
