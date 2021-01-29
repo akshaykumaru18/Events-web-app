@@ -143,6 +143,8 @@
                             style="width: 100px;height: 60px;" id="attend-button"><b>Attend</b></button>
                             <button type="button" class="btn btn-light" data-toggle="modal" data-target="#bookedModel"
                             style="width: 100px;height: 60px;" id="booked-button"><b>Booked</b></button>
+                            <button type="button" class="btn btn-light" data-toggle="modal" data-target="#pastModel"
+                            style="width: 100px;height: 60px;display:none" id="past-button"><b>PAST EVENT</b></button>
                     </div>
                 </div>
     
@@ -203,6 +205,28 @@
         <div class="modal-body">
           <h4>
               You cannot book to event multiple times
+          </h4>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal" id="pastModel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Past Event :</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          <h4>
+              You cannot book past event
           </h4>
         </div>
         

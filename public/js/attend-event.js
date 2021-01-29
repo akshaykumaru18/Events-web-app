@@ -56,19 +56,52 @@ function loadDetails(){
             var ticketPriceNode = document.getElementById("ticket-amount");
             ticketPriceNode.innerText = eventsList[i].TICKET_PRICE;
 
+            var apiUrl =  `http://localhost:5000/checkAttended?eventId=${localStorage.getItem("attend_event_id")}&emailId=${localStorage.getItem('user_email')}`;
+            fetch(apiUrl).then(response => {
+              return response.json();
+          }).then(data => {
+            console.log(data);
+              // Work with JSON data here
             var attendButtonNode = document.getElementById('attend-button');
             var bookedButtonNode = document.getElementById('booked-button');
-            if(String(eventsList[i].USER_BOOKED) == "true"){
+            var pastButtonNode = document.getElementById('past-button');
+             
+            console.log(data['data'].length);
+            for(i in data['data']){
+              
+            }
+            if(data['data'].length == 1){
               bookedButtonNode.style.display = "block";
               attendButtonNode.style.display = "none";
+              pastButtonNode.style.display = "none";
             } else if(eventsList[i].HOST_EMAIL == localStorage.getItem('user_email')){
               bookedButtonNode.style.display = "none";
               attendButtonNode.style.display = "none";
+              pastButtonNode.style.display = "none";
             }
             else{
               attendButtonNode.style.display = "block";
               bookedButtonNode.style.display = "none";
+              
             }
+
+            var d = new Date(String(eventsList[i].EVENT_START_DATE));
+              if(d < new Date()){
+                  //past-button
+                  //alert('past event');
+                  var pastButtonNode = document.getElementById('past-button');
+                  pastButtonNode.style.display = "block";
+                  attendButtonNode.style.display = "none";
+                  bookedButtonNode.style.display = "none";
+              }
+              
+          }).catch(err => {
+              alert(err);
+              // Do something for an error here
+          });
+
+          
+           
         }
 
     }).catch(err => {

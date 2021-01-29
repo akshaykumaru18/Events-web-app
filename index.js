@@ -393,6 +393,7 @@ app.get('/events', (req, res) => {
        order by(event.EVENT_START_DATE)`;
 
 
+      
 
 
         /*
@@ -445,8 +446,8 @@ app.get('/events', (req, res) => {
         console.log('Finding events for :' + user);
         //QUERIES
         const GET_events = `SELECT event.EVENT_ID,event.EVENT_NAME, event.EVENT_DESCRIPTION, event.EVENT_IMAGE,event.EVENT_START_DATE,event.EVENT_END_DATE, event.TICKET_PRICE, ea.EVENT_CITY, ec.CATEGORY_ID, c.CATEGORY_NAME, c.CATEGORY_TYPE
-    from EVENT AS event, event_address AS ea, event_category AS ec, category AS c
-    where ea.EVENT_ID = event.EVENT_ID and ec.EVENT_ID = event.EVENT_ID and ec.CATEGORY_ID = c.CATEGORY_ID and event.EVENT_HOST_ID = '${user}'
+    from EVENT AS event, event_address AS ea, event_category AS ec, category AS c, payment_history ps
+    where ea.EVENT_ID = event.EVENT_ID and ec.EVENT_ID = event.EVENT_ID and ec.CATEGORY_ID = c.CATEGORY_ID and ps.event_id = event.event_id
     order by(event.EVENT_START_DATE)`;
         mysql_pool.getConnection(function (err, connection) {
 
@@ -620,6 +621,36 @@ app.get('/attendeeList', (req, res) => {
 
         if (err) {
             connection.release();
+            console.log('Error getting mysql_pool connection: ' + err);
+
+        } else {
+            connection.query(GET_CATEGORIES, (err, results) => {
+                if (err) {
+                    return res.send(err);
+                }
+                else {
+                    console.log('The attendee results got are :' + results);
+                    //connection.release();
+                    return res.json({
+                        data: results
+                    })
+                }
+            });
+        }
+    });
+
+});
+
+app.get('/checkAttended', (req, res) => {
+    const {eventId,emailId} = req.query;
+    
+    console.log('API CALL: /checkAttended \t' + emailId);
+    //QUERIES
+    const GET_CATEGORIES = `SELECT ph.PAYMENT_DATE FROM  payment_history as ph WHERE ph.EVENT_ID = '${eventId}' and ph.EMAIL_ID = '${emailId}'`;
+    mysql_pool.getConnection(function (err, connection) {
+
+        if (err) {
+            
             console.log('Error getting mysql_pool connection: ' + err);
 
         } else {
