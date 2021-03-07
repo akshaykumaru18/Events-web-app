@@ -1,2 +1,9 @@
 # Events-web-app
-A Web app to host , find events happening near by you using sql as the backend database and NER for handling server side and frontend
+Hello all!
+I have developed a web application with the basic idea like event-bright to host the events and all users can attend to the events which are hosted on the website!
+
+Tech Stack :- 
+MySQL
+Node.js
+HTML & CSS
+Javascript
